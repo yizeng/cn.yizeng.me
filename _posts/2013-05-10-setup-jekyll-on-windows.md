@@ -27,7 +27,7 @@ redirect_from:
 	- 勾选 "Add Ruby executables to your PATH"，这样执行程序会被自动添加至 PATH 而避免不必要的头疼。
 
 	<a class="post-image" href="/assets/images/posts/2013-05-11-ruby-installer.png">
-	<img itemprop="image" data-src="/assets/images/posts/2013-05-11-ruby-installer.png" src="/assets/js/unveil/loader.gif" alt="Windows Ruby 安装包" />
+	<img itemprop="image" data-src="/assets/images/posts/2013-05-11-ruby-installer.png" src="/assets/javascripts/unveil/loader.gif" alt="Windows Ruby 安装包" />
 	</a>
 
 4. 打开一个命令提示行并输入以下命令来检测 Ruby 是否成功安装。

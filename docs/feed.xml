@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="cn"><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://cn.yizeng.me/feed.xml" rel="self" type="application/atom+xml" /><link href="http://cn.yizeng.me/" rel="alternate" type="text/html" hreflang="cn" /><updated>2017-05-28T20:46:58+12:00</updated><id>http://cn.yizeng.me/</id><title type="html">Yi Zeng</title><subtitle>Yi Zeng 的中文版个人网站</subtitle><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><entry><title type="html">在运行时更新 App.config 里的 AppSettings 属性及自定义配置节</title><link href="http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime/" rel="alternate" type="text/html" title="在运行时更新 App.config 里的 AppSettings 属性及自定义配置节" /><published>2013-08-31T00:00:00+12:00</published><updated>2013-08-31T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime</id><content type="html" xml:base="http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime/">&lt;p&gt;本文展示了如何在运行时更新（添加，修改或删除）&lt;code class=&quot;highlighter-rouge&quot;&gt;App.config&lt;/code&gt; 里的 &lt;code class=&quot;highlighter-rouge&quot;&gt;AppSettings&lt;/code&gt;
+属性及自定义配置节。&lt;/p&gt;
+
+&lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#app-config&quot; id=&quot;markdown-toc-app-config&quot;&gt;App.config 文件&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#update-appsettings&quot; id=&quot;markdown-toc-update-appsettings&quot;&gt;更新 AppSettings&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#add-in-appsettings&quot; id=&quot;markdown-toc-add-in-appsettings&quot;&gt;添加一个元素&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#edit-in-appsettings&quot; id=&quot;markdown-toc-edit-in-appsettings&quot;&gt;修改已有元素的键值&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#remove-in-appsettings&quot; id=&quot;markdown-toc-remove-in-appsettings&quot;&gt;删除已有的元素&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#update-custom-section&quot; id=&quot;markdown-toc-update-custom-section&quot;&gt;更新自定义配置节&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#add-in-custom-section&quot; id=&quot;markdown-toc-add-in-custom-section&quot;&gt;添加一个元素&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#edit-in-custom-section&quot; id=&quot;markdown-toc-edit-in-custom-section&quot;&gt;修改已有元素的键值&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#remove-in-custom-section&quot; id=&quot;markdown-toc-remove-in-custom-section&quot;&gt;删除已有的元素&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#print-out-keys&quot; id=&quot;markdown-toc-print-out-keys&quot;&gt;输出全部元素&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#references&quot; id=&quot;markdown-toc-references&quot;&gt;参考文献&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;app-config&quot;&gt;App.config 文件&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;configSections&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;sectionGroup&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;geoSettings&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;section&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;name=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;summary&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;System.Configuration.NameValueSectionHandler&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/sectionGroup&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/configSections&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;appSettings&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;add&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;key=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Language&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Ruby&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;add&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;key=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Version&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1.9.3&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/appSettings&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;geoSettings&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;summary&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;add&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;key=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Country&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;New Zealand&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;add&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;key=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;City&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;value=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Christchurch&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/summary&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/geoSettings&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;update-appsettings&quot;&gt;更新 AppSettings&lt;/h2&gt;
+
+&lt;h3 id=&quot;add-in-appsettings&quot;&gt;添加一个元素&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;OpenExeConfiguration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationUserLevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Add&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;OS&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Linux&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationSaveMode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Modified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RefreshSection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;appSettings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;edit-in-appsettings&quot;&gt;修改已有元素的键值&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;OpenExeConfiguration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationUserLevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;2.0.0&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationSaveMode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Modified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RefreshSection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;appSettings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;remove-in-appsettings&quot;&gt;删除已有的元素&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;OpenExeConfiguration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationUserLevel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;None&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Settings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Remove&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationSaveMode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Modified&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RefreshSection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;appSettings&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;update-custom-section&quot;&gt;更新自定义配置节&lt;/h2&gt;
+
+&lt;h3 id=&quot;add-in-custom-section&quot;&gt;添加一个元素&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;XmlDocument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CurrentDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SetupInformation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// create new node &amp;lt;add key=&quot;Region&quot; value=&quot;Canterbury&quot; /&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodeRegion&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;CreateElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;add&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nodeRegion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SetAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;key&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Region&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nodeRegion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SetAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;value&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Canterbury&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SelectSingleNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;//geoSettings/summary&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AppendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nodeRegion&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CurrentDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SetupInformation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RefreshSection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;geoSettings/summary&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;edit-in-custom-section&quot;&gt;修改已有元素的键值&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;XmlDocument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CurrentDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SetupInformation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SelectSingleNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;//geoSettings/summary/add[@key='Country']&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;value&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Value&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Old Zeeland&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CurrentDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SetupInformation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RefreshSection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;geoSettings/summary&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;remove-in-custom-section&quot;&gt;删除已有的元素&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;XmlDocument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CurrentDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SetupInformation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;XmlNode&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodeCity&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SelectSingleNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;//geoSettings/summary/add[@key='City']&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;nodeCity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ParentNode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RemoveChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nodeCity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;xmlDoc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;Save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CurrentDomain&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SetupInformation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigurationFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;RefreshSection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;geoSettings/summary&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;print-out-keys&quot;&gt;输出全部元素&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;n&quot;&gt;NameValueCollection&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;appSettings&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConfigurationManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AppSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// var customSettings = ConfigurationManager.GetSection(&quot;geoSettings/summary&quot;) as NameValueCollection;
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;foreach&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;appSettings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AllKeys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;WriteLine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{0}: {1}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;section&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;参考文献&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/q/8807218/1177636&quot;&gt;Modifying app.config at runtime throws exception&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/q/8522912/1177636&quot;&gt;update app.config file programatically with ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/q/8130085/1177636&quot;&gt;Opening the machine/base Web.Config (64bit) through code&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="c#" /><category term=".net" /><summary type="html">本文展示了如何在运行时更新（添加，修改或删除）App.config 里的 AppSettings 属性及自定义配置节。</summary></entry><entry><title type="html">使用 Selenium WebDriver C# 和 Ruby 给浏览器设置 User Agent</title><link href="http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/" rel="alternate" type="text/html" title="使用 Selenium WebDriver C# 和 Ruby 给浏览器设置 User Agent" /><published>2013-08-10T00:00:00+12:00</published><updated>2013-08-10T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby</id><content type="html" xml:base="http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/">&lt;p&gt;本文将展示如何使用 Selenium WebDriver C# and Ruby 给 Chrome，Firefox，IE，PhantomJS 浏览器设置 User Agent 的方法。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;环境:&lt;br /&gt;
+Linux Mint 16, Ruby 2.1.1p76, Selenium 2.41.0, ChromDriver 2.9&lt;br /&gt;
+Firefox 28.0, Chrome 33, PhantomJS 1.9.7&lt;/p&gt;
+
+  &lt;p&gt;User Agent 示例（ipad）:&lt;br /&gt;
+Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#chrome&quot; id=&quot;markdown-toc-chrome&quot;&gt;Chrome&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#chrome-c-sharp&quot; id=&quot;markdown-toc-chrome-c-sharp&quot;&gt;C#&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#chrome-ruby&quot; id=&quot;markdown-toc-chrome-ruby&quot;&gt;Ruby&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#firefox&quot; id=&quot;markdown-toc-firefox&quot;&gt;Firefox&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#firefox-c-sharp&quot; id=&quot;markdown-toc-firefox-c-sharp&quot;&gt;C#&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#firefox-ruby&quot; id=&quot;markdown-toc-firefox-ruby&quot;&gt;Ruby&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#phantomjs&quot; id=&quot;markdown-toc-phantomjs&quot;&gt;PhantomJS&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#phantomjs-c-sharp&quot; id=&quot;markdown-toc-phantomjs-c-sharp&quot;&gt;C#&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#phantomjs-ruby&quot; id=&quot;markdown-toc-phantomjs-ruby&quot;&gt;Ruby&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#ie&quot; id=&quot;markdown-toc-ie&quot;&gt;IE&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;chrome&quot;&gt;Chrome&lt;/h2&gt;
+
+&lt;h3 id=&quot;chrome-c-sharp&quot;&gt;C#&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ChromeOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddArgument&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;--user-agent=Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5355d Safari/8536.25&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;IWebDriver&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ChromeDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;chrome-ruby&quot;&gt;Ruby&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'selenium-webdriver'&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;USER_AGENT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10;'&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Selenium&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;WebDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:chrome&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:switches&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;sx&quot;&gt;%W[--user-agent=&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;USER_AGENT&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sx&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;firefox&quot;&gt;Firefox&lt;/h2&gt;
+
+&lt;h3 id=&quot;firefox-c-sharp&quot;&gt;C#&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;profile&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;FirefoxProfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;SetPreference&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;general.useragent.override&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;IWebDriver&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;FirefoxDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;firefox-ruby&quot;&gt;Ruby&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'selenium-webdriver'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Selenium&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;WebDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Firefox&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'general.useragent.override'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Selenium&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;WebDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:firefox&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;profile&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;phantomjs&quot;&gt;PhantomJS&lt;/h2&gt;
+
+&lt;h3 id=&quot;phantomjs-c-sharp&quot;&gt;C#&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c#&quot; data-lang=&quot;c#&quot;&gt;&lt;span class=&quot;kt&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;options&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PhantomJSOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;AddAdditionalCapability&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;phantomjs.page.settings.userAgent&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;IWebDriver&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;PhantomJSDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;phantomjs-ruby&quot;&gt;Ruby&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'selenium-webdriver'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;capabilities&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Selenium&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;WebDriver&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Remote&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Capabilities&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;phantomjs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'phantomjs.page.settings.userAgent'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Selenium&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;WebDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:phantomjs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:desired_capabilities&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;capabilities&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;ie&quot;&gt;IE&lt;/h2&gt;
+
+&lt;p&gt;不幸但不出意料，IE 不允许 Selenium WebDriver 来原生地设置 User Agent。
+以下&lt;a href=&quot;https://groups.google.com/d/msg/selenium-users/q1f-nIn1BJY/pjnmCc3jSz4J&quot;&gt;引用&lt;/a&gt;自 IE driver 的开发者 Jim Evans：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The IE driver does not support changing the user agent, using capabilities or otherwise. Full stop.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="c#" /><category term="ruby" /><category term="selenium webdriver" /><summary type="html">本文将展示如何使用 Selenium WebDriver C# and Ruby 给 Chrome，Firefox，IE，PhantomJS 浏览器设置 User Agent 的方法。</summary></entry><entry><title type="html">在 GNOME 中反转触摸板而不改变鼠标键位</title><link href="http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome/" rel="alternate" type="text/html" title="在 GNOME 中反转触摸板而不改变鼠标键位" /><published>2013-07-14T00:00:00+12:00</published><updated>2013-07-14T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome</id><content type="html" xml:base="http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome/">&lt;p&gt;作为一个使用反转了左右键位的触摸板，却使用正常键位鼠标的左撇子用户，在安装了 Linux Mint 15 Cinnamon 桌面之后，不能从 “System Settings -&amp;gt; Mouse and Touchpad” 分别设置触摸板和鼠标的左右键位是一件很恼人的事情。&lt;/p&gt;
+
+&lt;p&gt;不过在经过了短暂的研究后，受此 &lt;a href=&quot;http://askubuntu.com/q/83590/171955&quot;&gt;AskUbuntu 问答&lt;/a&gt;的启发，找到了一个简单的通过 &lt;a href=&quot;https://developer.gnome.org/gio/2.34/GSettings.html&quot;&gt;GSettings&lt;/a&gt; 来设置的解决方法。&lt;/p&gt;
+
+&lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#invert-touchpad&quot; id=&quot;markdown-toc-invert-touchpad&quot;&gt;反转触摸板&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#using-cli&quot; id=&quot;markdown-toc-using-cli&quot;&gt;通过命令行&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#using-gui&quot; id=&quot;markdown-toc-using-gui&quot;&gt;通过图形化界面 “dconf-editor”&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#invert-mouse&quot; id=&quot;markdown-toc-invert-mouse&quot;&gt;反转鼠标&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;invert-touchpad&quot;&gt;反转触摸板&lt;/h2&gt;
+
+&lt;h3 id=&quot;using-cli&quot;&gt;通过命令行&lt;/h3&gt;
+
+&lt;p&gt;在 Gsettings 里, &lt;code class=&quot;highlighter-rouge&quot;&gt;touchpad&lt;/code&gt; 下面有一个子键叫做 &lt;code class=&quot;highlighter-rouge&quot;&gt;left-handed&lt;/code&gt;，是用来控制触摸板的左右键位属性的，该子键是一个 string 类型，默认键值为 “mouse”，但可以设置成 “left” 或 “right”。&lt;/p&gt;
+
+&lt;p&gt;通过终端，输入以下命令来将其设成左利手键位：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gsettings set org.gnome.settings-daemon.peripherals.touchpad left-handed left
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;using-gui&quot;&gt;通过图形化界面 “dconf-editor”&lt;/h3&gt;
+
+&lt;p&gt;Gsettings 有一个图形化工具叫做 “dconf-editor”， 它使用二进制大对象数据库来保存全部设置和键值。(两者之间的关系和 “Windows Regitry” 与 “regedit” 类似。)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;首先安装 &lt;code class=&quot;highlighter-rouge&quot;&gt;dconf-editor&lt;/code&gt;, 在终端中输入：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt-get install dconf-tools
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;然后通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;Alt&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;F2&lt;/code&gt;， 输入 &lt;code class=&quot;highlighter-rouge&quot;&gt;dconf-editor&lt;/code&gt; 并键入 &lt;code class=&quot;highlighter-rouge&quot;&gt;Enter&lt;/code&gt; 来打开它。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在打开的 “dconf-editor” 窗口中输入 &lt;code class=&quot;highlighter-rouge&quot;&gt;Ctrl&lt;/code&gt; + &lt;code class=&quot;highlighter-rouge&quot;&gt;F&lt;/code&gt; 来搜索 &lt;code class=&quot;highlighter-rouge&quot;&gt;touchpad&lt;/code&gt; 字段。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;touchpad&lt;/code&gt; 下点选子键 &lt;code class=&quot;highlighter-rouge&quot;&gt;left-handed&lt;/code&gt; 并将其键值设置为 &lt;code class=&quot;highlighter-rouge&quot;&gt;left&lt;/code&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a class=&quot;post-image&quot; href=&quot;/assets/images/posts/2013-07-14-dconf-editor-periperals-touchpad.png&quot;&gt;
+&lt;img itemprop=&quot;image&quot; data-src=&quot;/assets/images/posts/2013-07-14-dconf-editor-periperals-touchpad.png&quot; src=&quot;/assets/javascripts/unveil/loader.gif&quot; alt=&quot;Invert touchpad from dconf-editor&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;invert-mouse&quot;&gt;反转鼠标&lt;/h2&gt;
+
+&lt;p&gt;如果也想将鼠标的左右键位反转，可以通过命令行、“系统设置”或是 “dconf-editor” 来进行。不过请注意 &lt;code class=&quot;highlighter-rouge&quot;&gt;peripherals.mouse&lt;/code&gt; 下的子键 &lt;code class=&quot;highlighter-rouge&quot;&gt;left-handed&lt;/code&gt; 所保存的键值是布尔类型，即只应被设置为 “true” 或 “false”。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gsettings set org.gnome.settings-daemon.peripherals.mouse left-handed true
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="linux mint" /><summary type="html">作为一个使用反转了左右键位的触摸板，却使用正常键位鼠标的左撇子用户，在安装了 Linux Mint 15 Cinnamon 桌面之后，不能从 “System Settings -&amp;gt; Mouse and Touchpad” 分别设置触摸板和鼠标的左右键位是一件很恼人的事情。</summary></entry><entry><title type="html">在 Linux Mint 上安装 TortoiseHg</title><link href="http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint/" rel="alternate" type="text/html" title="在 Linux Mint 上安装 TortoiseHg" /><published>2013-07-02T00:00:00+12:00</published><updated>2013-07-02T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint</id><content type="html" xml:base="http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint/">&lt;p&gt;本文记录了如何通过官方 &lt;a href=&quot;https://launchpad.net/~tortoisehg-ppa/+archive/releases&quot;&gt;TortoiseHg Release PPA&lt;/a&gt; 在 Linux Mint 15 上安装 &lt;a href=&quot;http://tortoisehg.bitbucket.org/&quot;&gt;TortoiseHg&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;不推荐同时也向系统添加 &lt;a href=&quot;https://launchpad.net/~mercurial-ppa/+archive/releases&quot;&gt;Mercurial PPA&lt;/a&gt;， 因为 TortoiseHg 对于同何版本的 Mercurial 共同工作有着严格的要求。&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://launchpad.net/~tortoisehg-ppa/+archive/stable-snapshots&quot;&gt;TortoiseHg PPA Stable Snapshots&lt;/a&gt; 提供了最新稳定版本的安装包。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;步骤&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;向系统添加 &lt;a href=&quot;https://launchpad.net/~tortoisehg-ppa/+archive/releases&quot;&gt;TortoiseHg Release PPA&lt;/a&gt;&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;sudo add-apt-repository ppa:tortoisehg-ppa/releases&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;更新软件包及依赖关系&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;sudo apt-get update&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;安装 &lt;code class=&quot;highlighter-rouge&quot;&gt;tortoisehg&lt;/code&gt; 软件包&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;sudo apt-get install tortoisehg&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;测试安装是否成功&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;hg --version&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;终端输出示例：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Mercurial Distributed SCM (version 2.8.2)
+(see http://mercurial.selenic.com for more information)
+
+Copyright (C) 2005-2013 Matt Mackall and others
+This is free software; see the source for copying conditions. There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="linux mint" /><category term="tortoisehg" /><summary type="html">本文记录了如何通过官方 TortoiseHg Release PPA 在 Linux Mint 15 上安装 TortoiseHg。</summary></entry><entry><title type="html">在 Travis CI 上创建 Selenium WebDriver Ruby 项目</title><link href="http://cn.yizeng.me/2013/06/15/setup-a-selenium-webdriver-ruby-project-on-travis-ci/" rel="alternate" type="text/html" title="在 Travis CI 上创建 Selenium WebDriver Ruby 项目" /><published>2013-06-15T00:00:00+12:00</published><updated>2013-06-15T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/06/15/setup-a-selenium-webdriver-ruby-project-on-travis-ci</id><content type="html" xml:base="http://cn.yizeng.me/2013/06/15/setup-a-selenium-webdriver-ruby-project-on-travis-ci/">&lt;blockquote&gt;
+  &lt;p&gt;原文已于2014年4月20日更新，请点击&lt;a href=&quot;http://yizeng.me/2013/06/15/setup-a-selenium-webdriver-ruby-project-on-travis-ci/&quot;&gt;本链接&lt;/a&gt;查看最新版本&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#create-repo&quot; id=&quot;markdown-toc-create-repo&quot;&gt;在 Github 上创建一个代码仓库&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#create-project&quot; id=&quot;markdown-toc-create-project&quot;&gt;建立 Selenium WebDriver Ruby 项目&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#project-structure&quot; id=&quot;markdown-toc-project-structure&quot;&gt;项目结构&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#create-sample-test&quot; id=&quot;markdown-toc-create-sample-test&quot;&gt;编写一个使用 headless PhantomJS 的 UI 测试&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#add-rakefile&quot; id=&quot;markdown-toc-add-rakefile&quot;&gt;添加 Rakefile&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#add-travis-yml&quot; id=&quot;markdown-toc-add-travis-yml&quot;&gt;添加 .travis.yml&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#push-to-github&quot; id=&quot;markdown-toc-push-to-github&quot;&gt;上传至 Github&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#enable-hook&quot; id=&quot;markdown-toc-enable-hook&quot;&gt;登入 Travis CI 并开启 hook&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#run-project&quot; id=&quot;markdown-toc-run-project&quot;&gt;在 Travis CI 上运行项目&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#analyze-results&quot; id=&quot;markdown-toc-analyze-results&quot;&gt;在 Travis CI 上分析结果&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#results-page&quot; id=&quot;markdown-toc-results-page&quot;&gt;Travis CI 上的项目页面&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#build-log&quot; id=&quot;markdown-toc-build-log&quot;&gt;运行日志&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#test-results&quot; id=&quot;markdown-toc-test-results&quot;&gt;测试结果&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#build-status-images&quot; id=&quot;markdown-toc-build-status-images&quot;&gt;项目状态图标&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;create-repo&quot;&gt;在 Github 上创建一个代码仓库&lt;/h2&gt;
+
+&lt;p&gt;要想在 Travis CI 上运行项目，必须首先要在 Github 上创建一个代码仓库。
+如果还没有建立代码仓库，请前往 Github 的 &lt;a href=&quot;https://github.com/repositories/new&quot;&gt;‘Create a New Repository’&lt;/a&gt; 页面创建一个新的公开代码仓库。&lt;/p&gt;
+
+&lt;h2 id=&quot;create-project&quot;&gt;建立 Selenium WebDriver Ruby 项目&lt;/h2&gt;
+
+&lt;h3 id=&quot;project-structure&quot;&gt;项目结构&lt;/h3&gt;
+
+&lt;p&gt;以下是本示例 Selenium Ruby 项目的结构：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/root                       -- 代码的根目录
+    /test                   -- 示例测试的文件夹
+        test_home_page.rb   -- 示例测试文件
+    .travis.yml             -- Travis CI 的配置文件
+    README.md               -- 项目简介
+    Rakefile                -- Rakefile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;create-sample-test&quot;&gt;编写一个使用 headless PhantomJS 的 UI 测试&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Test::Unit&lt;/code&gt; 是本示例所使用的测试框架。&lt;/li&gt;
+  &lt;li&gt;Headless WebKit &lt;a href=&quot;http://phantomjs.org/&quot;&gt;PhantomJS&lt;/a&gt; 是本示例将要测试的浏览器。&lt;/li&gt;
+  &lt;li&gt;PhantomJS 的可执行文件应该已经被预案装于 &lt;a href=&quot;http://about.travis-ci.org/docs/user/ci-environment/&quot;&gt;Travis CI 服务器&lt;/a&gt;上，
+目前于 05/07/2013 时的版本为 &lt;code class=&quot;highlighter-rouge&quot;&gt;1.9.1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Travis CI 同时也支持需要运行 GUI 的测试, 请查阅&lt;a href=&quot;http://about.travis-ci.org/docs/user/gui-and-headless-browsers&quot;&gt;文档&lt;/a&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;以下为一个示例测试文件叫做 &lt;code class=&quot;highlighter-rouge&quot;&gt;test_home_page.rb&lt;/code&gt;：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'selenium-webdriver'&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test/unit'&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Test&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TestHomePage&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Unit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;TestCase&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setup&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@driver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Selenium&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;WebDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:phantomjs&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;navigate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'http://yizeng.me'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;teardown&lt;/span&gt;
+      &lt;span class=&quot;vi&quot;&gt;@driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;quit&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_home_page_title&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;assert_equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Yi Zeng'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;vi&quot;&gt;@driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;add-rakefile&quot;&gt;添加 Rakefile&lt;/h3&gt;
+
+&lt;p&gt;Travis CI 使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;Rakefile&lt;/code&gt; 来编译项目并运行测试，如果该文件不存在，编译会像如下一样报错：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ rake
+rake aborted!
+No Rakefile found (looking for: rakefile, Rakefile, rakefile.rb, Rakefile.rb)
+The command &quot;rake&quot; exited with 1.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;以下为 Rakefile 示例：&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'rake/testtask'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;task&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:default&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Rake&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;TestTask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;libs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'test'&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# ensure the sample test file is included here&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;test_files&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FileList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'test/test_*.rb'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+  &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;verbose&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;add-travis-yml&quot;&gt;添加 .travis.yml&lt;/h3&gt;
+
+&lt;p&gt;Travis CI 使用在项目根目录下的 &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; 来了解项目配置，例如：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;项目所使用的编程语言&lt;/li&gt;
+  &lt;li&gt;运行项目的 setup 和 cleanup&lt;/li&gt;
+  &lt;li&gt;运行项目所需要的命令&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;因为示例项目是写于 Ruby 的，故 Ruby 的配置将被使用于 &lt;code class=&quot;highlighter-rouge&quot;&gt;.travis.yml&lt;/code&gt; 中。
+详细的官方文档可以&lt;a href=&quot;http://about.travis-ci.org/docs/user/languages/ruby/&quot;&gt;在这里&lt;/a&gt;被查阅。
+想要验证配置文件，&lt;a href=&quot;http://about.travis-ci.org/docs/user/travis-lint/&quot;&gt;Travis Lint&lt;/a&gt; 会是一个非常方便的工具，不过最简单的方法是前往 &lt;a href=&quot;http://lint.travis-ci.org/&quot;&gt;Travis WebLint&lt;/a&gt; 页面，直接粘贴进配置文件内容。&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yaml&quot; data-lang=&quot;yaml&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 示例 .travis.yml 文件:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;language&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ruby&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;rvm&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 将被使用的 Ruby 版本&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;2.0.0&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1.9.3&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;1.9.2&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;before_install&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;gem update&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 可选，更新所有的 gems&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;gem install selenium-webdriver&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;phantomjs --version&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 输出 phantomjs 版本&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;push-to-github&quot;&gt;上传至 Github&lt;/h2&gt;
+
+&lt;p&gt;一旦代码仓库已正确设立了，就可以上传至 Github。&lt;/p&gt;
+
+&lt;h2 id=&quot;enable-hook&quot;&gt;登入 Travis CI 并开启 hook&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;使用本项目的 Github 帐号登入 Travis CI&lt;/li&gt;
+  &lt;li&gt;前往 &lt;a href=&quot;https://travis-ci.org/profile&quot;&gt;Travis CI profile&lt;/a&gt; 页面并找到此项目的代码仓库，
+如果此项目不在列表中，请确认：
+    &lt;ul&gt;
+      &lt;li&gt;此代码仓库不是私有的&lt;/li&gt;
+      &lt;li&gt;Travis CI 已经与 Github 同步 （如果需要可以点击 “立即同步” 按钮）&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;开启此代码仓库的 hook&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a class=&quot;post-image&quot; href=&quot;/assets/images/posts/2013-06-09-enable-hook-on-travis-ci.gif&quot; title=&quot;在 Travis CI 上开启 hook&quot;&gt;
+  &lt;img itemprop=&quot;image&quot; data-src=&quot;/assets/images/posts/2013-06-09-enable-hook-on-travis-ci.gif&quot; src=&quot;/assets/javascripts/unveil/loader.gif&quot; alt=&quot;在 Travis CI 上开启 hook&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;run-project&quot;&gt;在 Travis CI 上运行项目&lt;/h2&gt;
+
+&lt;p&gt;只要有更新上传至代码仓库，Travis CI 应该会自动运行项目。&lt;/p&gt;
+
+&lt;p&gt;不仅如此，若想要手动运行项目，可以通过以下几步：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;前往 Github 上项目的设置页面&lt;/li&gt;
+  &lt;li&gt;点选 tab &lt;code class=&quot;highlighter-rouge&quot;&gt;Service Hooks&lt;/code&gt; (url: https://github.com/[GITHUB_USERNAME]/[REPO_NAME]/settings/hooks)&lt;/li&gt;
+  &lt;li&gt;在列表中下部找到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Travis&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;点 &lt;code class=&quot;highlighter-rouge&quot;&gt;Test Hook&lt;/code&gt; 按钮&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;analyze-results&quot;&gt;在 Travis CI 上分析结果&lt;/h2&gt;
+
+&lt;h3 id=&quot;results-page&quot;&gt;Travis CI 上的项目页面&lt;/h3&gt;
+
+&lt;p&gt;Travis CI 上的项目页面在 &lt;code class=&quot;highlighter-rouge&quot;&gt;https://travis-ci.org/[GITHUB_USERNAME]/[REPO_NAME]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a class=&quot;post-image&quot; href=&quot;/assets/images/posts/2013-06-15-results-page-on-travis-ci.gif&quot; title=&quot;Travis CI 的运行结果页面&quot;&gt;
+  &lt;img itemprop=&quot;image&quot; data-src=&quot;/assets/images/posts/2013-06-15-results-page-on-travis-ci.gif&quot; src=&quot;/assets/javascripts/unveil/loader.gif&quot; alt=&quot;Travis CI 的运行结果页面&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;build-log&quot;&gt;运行日志&lt;/h3&gt;
+
+&lt;p&gt;点击每个运行序号将会打开该次运行的的日志，里面基本包括所有在运行过程中的控制台输出内容。&lt;/p&gt;
+
+&lt;h3 id=&quot;test-results&quot;&gt;测试结果&lt;/h3&gt;
+
+&lt;p&gt;测试结果显示在运行日志中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;rake&lt;/code&gt; 部分。
+例如，下面为&lt;a href=&quot;https://travis-ci.org/yizeng/setup-selenium-webdriver-ruby-project-on-travis-ci/jobs/8109067&quot;&gt;此次运行的日志里的测试结果&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ rake
+/home/travis/.rvm/rubies/ruby-2.0.0-p0/bin/ruby -I&quot;lib:test&quot; -I&quot;/home/travis/.rvm/gems/ruby-2.0.0-p0/gems/rake-10.0.4/lib&quot; &quot;/home/travis/.rvm/gems/ruby-2.0.0-p0/gems/rake-10.0.4/lib/rake/rake_test_loader.rb&quot; &quot;test/test_home_page.rb&quot; 
+Run options:
+
+# Running tests:
+
+Finished tests in 1.078374s, 0.9273 tests/s, 0.9273 assertions/s.
+1 tests, 1 assertions, 0 failures, 0 errors, 0 skips
+
+ruby -v: ruby 2.0.0p0 (2013-02-24 revision 39474) [x86_64-linux]
+The command &quot;rake&quot; exited with 0.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;build-status-images&quot;&gt;项目状态图标&lt;/h3&gt;
+
+&lt;p&gt;Travis CI 为项目提供了 &lt;a href=&quot;http://about.travis-ci.org/docs/user/status-images/&quot;&gt;项目状态图标&lt;/a&gt;，
+它们作为项目开发的好习惯，被鼓励用于项目主页或 README 文件中。&lt;/p&gt;
+
+&lt;p&gt;项目状态图标储存在 &lt;code class=&quot;highlighter-rouge&quot;&gt;https://travis-ci.org/[GITHUB_USERNAME]/[REPO_NAME].png&lt;/code&gt;，
+branches 可以通过如 &lt;code class=&quot;highlighter-rouge&quot;&gt;?branch=master,staging,production&lt;/code&gt; 的 URL query 字符串来额外添加。&lt;/p&gt;
+
+&lt;p&gt;除此之外，在 Travis CI 上的项目主页，点击设置按钮，然后选择 &lt;code class=&quot;highlighter-rouge&quot;&gt;Status Image&lt;/code&gt;，
+一个对话框将会显示全部可能的选项，如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;a class=&quot;post-image&quot; href=&quot;/assets/images/posts/2013-07-05-travis-ci-status-image-options.gif&quot; title=&quot;Travis CI 项目状态图标选项&quot;&gt;
+  &lt;img itemprop=&quot;image&quot; data-src=&quot;/assets/images/posts/2013-07-05-travis-ci-status-image-options.gif&quot; src=&quot;/assets/javascripts/unveil/loader.gif&quot; alt=&quot;Travis CI 项目状态图标选项&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;目前本示例项目的运行状态为： &lt;a class=&quot;image-link&quot; href=&quot;https://travis-ci.org/yizeng/setup-selenium-webdriver-ruby-project-on-travis-ci&quot; title=&quot;Travis CI 项目状态&quot;&gt;&lt;img src=&quot;https://travis-ci.org/yizeng/setup-selenium-webdriver-ruby-project-on-travis-ci.png&quot; alt=&quot;Travis CI 项目状态&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="github" /><category term="phantomjs" /><category term="ruby" /><category term="selenium webdriver" /><category term="travis-ci" /><summary type="html">原文已于2014年4月20日更新，请点击本链接查看最新版本</summary></entry><entry><title type="html">创建自定义的 Jekyll 404 页面</title><link href="http://cn.yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/" rel="alternate" type="text/html" title="创建自定义的 Jekyll 404 页面" /><published>2013-05-26T00:00:00+12:00</published><updated>2013-05-26T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/05/26/create-a-custom-jekyll-404-page</id><content type="html" xml:base="http://cn.yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/">&lt;blockquote&gt;
+  &lt;p&gt;若想查看原文，请点击&lt;a href=&quot;http://yizeng.me/2013/05/26/create-a-custom-jekyll-404-page/&quot;&gt;本链接&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;本文示例了如何给储存在 &lt;a href=&quot;http://pages.github.com/&quot;&gt;GitHub Page&lt;/a&gt; 服务器上的 Jekyll 网站创建自定义的 Jekyll 404 页面，对于使用其他服务器的 Jekyll 网站情况可能有所不同。同时还需要注意的是，自定义的 404 页面仅对使用了自己域名的网站有效。查看更详细官方的文档，请点击 GitHub Pages 的官方文档 &lt;a href=&quot;https://help.github.com/articles/custom-404-pages&quot;&gt;Custom 404 Pages - GitHub Help&lt;/a&gt;。&lt;/p&gt;
+
+&lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#create-404-file&quot; id=&quot;markdown-toc-create-404-file&quot;&gt;创建 404.html 文件&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#add-front-matter&quot; id=&quot;markdown-toc-add-front-matter&quot;&gt;添加 YAML Front Matter&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#add-404-content&quot; id=&quot;markdown-toc-add-404-content&quot;&gt;添加 404 内容&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#redirect-page&quot; id=&quot;markdown-toc-redirect-page&quot;&gt;自动跳转 404 页面&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#test-404-page&quot; id=&quot;markdown-toc-test-404-page&quot;&gt;测试 404 页面&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;create-404-file&quot;&gt;创建 404.html 文件&lt;/h2&gt;
+
+&lt;p&gt;在 Jekyll 网站的根目录下创建 &lt;code class=&quot;highlighter-rouge&quot;&gt;404.html&lt;/code&gt;，&lt;del&gt;此文件必须为 HTML 格式&lt;/del&gt;&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+
+&lt;h2 id=&quot;add-front-matter&quot;&gt;添加 YAML Front Matter&lt;/h2&gt;
+
+&lt;p&gt;由于本文的目标是创建一个和其他所有页面主题一致的自定义 404 页面，而非重写一个单独的 404.html，所以首先添加&lt;a href=&quot;http://jekyllrb.com/docs/frontmatter/&quot;&gt;YAML Front Matter&lt;/a&gt;至 404.html 的头部并设置 layout 为 “page”。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+layout: page
+title: 404
+---
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;add-404-content&quot;&gt;添加 404 内容&lt;/h2&gt;
+
+&lt;p&gt;在 &lt;a href=&quot;http://jekyllrb.com/docs/frontmatter/&quot;&gt;YAML Front Matter&lt;/a&gt; 部分后添加真正的404内容。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+layout: page
+title: 404
+---
+&amp;lt;p&amp;gt;对不起，无法找到该页。 =(&amp;lt;/p&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;redirect-page&quot;&gt;自动跳转 404 页面&lt;/h2&gt;
+
+&lt;p&gt;为了让 404 页面能自动跳转，迄今为止所找到的最简单的方法是通过 HTML meta 标签，&lt;code class=&quot;highlighter-rouge&quot;&gt;meta http-equiv=&quot;refresh&quot;&lt;/code&gt;&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 Jekyll 的 default.html 文件里 (例如： 本网站的在 /_includes/themes/THEME_NAME/default.html), 在 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;head&amp;gt;&lt;/code&gt; 标签内添加一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; 标签。 (&lt;a href=&quot;http://www.w3schools.com/tags/att_meta_http_equiv.asp&quot;&gt;W3schools 示例&lt;/a&gt;)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;给 meta 标签添加一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;http-equiv&lt;/code&gt; 属性并设置为 “refresh”, i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;meta http-equiv=&quot;refresh&quot;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;再给 meta 标签添加一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;content&lt;/code&gt; 属性并设置为 &lt;code class=&quot;highlighter-rouge&quot;&gt;content=&quot;5; url=/&quot;&lt;/code&gt;。
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;5&lt;/code&gt; 代表着在自动跳转前所等待的秒数。 设置为 &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; 表示不做任何等待并立即跳转。&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;url=/&lt;/code&gt; 设置了跳转的 URL， 可以被设置成任何链接，如 &lt;code class=&quot;highlighter-rouge&quot;&gt;url=http://yizeng.me&lt;/code&gt;。&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;使用 &lt;a href=&quot;http://wiki.shopify.com/Liquid#If_.2F_Else_.2F_Unless&quot;&gt;Liquid’s if-else&lt;/a&gt; 语句来确保自动跳转只发生于 &lt;code class=&quot;highlighter-rouge&quot;&gt;404.html&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;script src=&quot;https://gist.github.com/yizeng/a4f26459bc8795476ed4.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;strong&gt;以下为一个完整的 &lt;code class=&quot;highlighter-rouge&quot;&gt;default.html&lt;/code&gt; 示例:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/yizeng/5428d29c3d5af224475b.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2 id=&quot;test-404-page&quot;&gt;测试 404 页面&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在本地使用命令 &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt; 来 build Jekyll 服务器，然后前往 &lt;code class=&quot;highlighter-rouge&quot;&gt;localhost:4000/404.html&lt;/code&gt;, 看看自定义的 404 页面是否正常工作。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;提交至 GitHub 看看是否 404 能正常工作。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;前往网站上的一个不存在的网址，如 http://yizeng.me/go_404，看页面是否能正常显示，是否能自动跳转至指定的页面。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;官方文档内已经删除此句。&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;http://www.w3schools.com/tags/att_meta_http_equiv.asp&quot;&gt;“HTML &amp;lt;meta&amp;gt; http-equiv Attribute” 实例&lt;/a&gt; by W3schools.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="jekyll" /><category term="github" /><summary type="html">若想查看原文，请点击本链接。</summary></entry><entry><title type="html">如何使用 _netrc 来避免 TortoiseGit 要求输入用户名和密码</title><link href="http://cn.yizeng.me/2013/05/19/use-_netrc-to-avoid-tortoisegit-asking-for-username-and-password/" rel="alternate" type="text/html" title="如何使用 _netrc 来避免 TortoiseGit 要求输入用户名和密码" /><published>2013-05-19T00:00:00+12:00</published><updated>2013-05-19T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/05/19/use-_netrc-to-avoid-tortoisegit-asking-for-username-and-password</id><content type="html" xml:base="http://cn.yizeng.me/2013/05/19/use-_netrc-to-avoid-tortoisegit-asking-for-username-and-password/">&lt;ol&gt;
+  &lt;li&gt;从文件管理器打开 &lt;code class=&quot;highlighter-rouge&quot;&gt;%USERPROFILE%&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;新建一个文件，名为 &lt;code class=&quot;highlighter-rouge&quot;&gt;_netrc&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;在文件中输入以下几行：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;machine github.com&lt;br /&gt;
+login yizeng&lt;br /&gt;
+password the_password&lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="git" /><category term="tortoisegit" /><category term="windows" /><summary type="html">从文件管理器打开 %USERPROFILE% 新建一个文件，名为 _netrc 在文件中输入以下几行：</summary></entry><entry><title type="html">Jekyll 使用过程中的一些常用的 RubyGems 命令</title><link href="http://cn.yizeng.me/2013/05/17/quick-rubygems-command-references-for-jekyll/" rel="alternate" type="text/html" title="Jekyll 使用过程中的一些常用的 RubyGems 命令" /><published>2013-05-17T00:00:00+12:00</published><updated>2013-05-17T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/05/17/quick-rubygems-command-references-for-jekyll</id><content type="html" xml:base="http://cn.yizeng.me/2013/05/17/quick-rubygems-command-references-for-jekyll/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;gem --help&lt;/code&gt; 显然会是很有用且值得一读的，可惜过长，故挑出以下一些命令作为常用参考。&lt;/p&gt;
+
+&lt;h2 id=&quot;heading-安装卸载-gem&quot;&gt;安装/卸载 gem&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install jekyll
+gem uninstall jekyll
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;heading-安装某特定版本的-gem&quot;&gt;安装某特定版本的 gem&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install pygments.rb --version 0.4.2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;heading-卸载某特定版本的-gem&quot;&gt;卸载某特定版本的 gem&lt;/h2&gt;
+
+&lt;p&gt;提示 ‘Select gem to uninstall’ 并让用户选择&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem uninstall jekyll
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;卸载指定版本&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem uninstall jekyll --version 1.0.1
+gem uninstall jekyll --version '&amp;lt;1.0.1'
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;移除所有旧版本的 Jekyll&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem cleanup jekyll
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;heading-列出所有本地的-gem&quot;&gt;列出所有本地的 gem&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem list --local
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;heading-列出所有的-gem&quot;&gt;列出所有的 gem&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem list --all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;heading-列出所有-jekyll-的-gem&quot;&gt;列出所有 Jekyll 的 gem&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem list jekyll
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;heading-更新已安装的-gem&quot;&gt;更新已安装的 gem&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem update
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;heading-更新已安装的系统-gem&quot;&gt;更新已安装的系统 gem&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem update --system
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="jekyll" /><category term="ruby" /><summary type="html">gem --help 显然会是很有用且值得一读的，可惜过长，故挑出以下一些命令作为常用参考。</summary></entry><entry><title type="html">在 Windows 上安装 Jekyll</title><link href="http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows/" rel="alternate" type="text/html" title="在 Windows 上安装 Jekyll" /><published>2013-05-10T00:00:00+12:00</published><updated>2013-05-10T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows</id><content type="html" xml:base="http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows/">&lt;blockquote&gt;
+  &lt;p&gt;若想查看原文，请点击&lt;a href=&quot;http://yizeng.me/2013/05/10/install-jekyll-3-on-windows/&quot;&gt;本链接&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#install-ruby&quot; id=&quot;markdown-toc-install-ruby&quot;&gt;安装 Ruby&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#install-devkit&quot; id=&quot;markdown-toc-install-devkit&quot;&gt;安装 DevKit&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#install-jekyll&quot; id=&quot;markdown-toc-install-jekyll&quot;&gt;安装 Jekyll&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#install-pygements&quot; id=&quot;markdown-toc-install-pygements&quot;&gt;安装 Pygments&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#install-python&quot; id=&quot;markdown-toc-install-python&quot;&gt;安装 Python&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#install-easy-install&quot; id=&quot;markdown-toc-install-easy-install&quot;&gt;安装 ‘Easy Install’&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#install-pygements-2&quot; id=&quot;markdown-toc-install-pygements-2&quot;&gt;安装 Pygments&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#start-jekyll&quot; id=&quot;markdown-toc-start-jekyll&quot;&gt;启动 Jekyll&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#troubleshooting&quot; id=&quot;markdown-toc-troubleshooting&quot;&gt;故障诊断&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;install-ruby&quot;&gt;安装 Ruby&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;前往 &lt;a href=&quot;http://rubyinstaller.org/downloads/&quot;&gt;http://rubyinstaller.org/downloads/&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 “RubyInstallers” 部分，选择某个版本点击下载。&lt;br /&gt;
+例如， Ruby 2.0.0-p451 (x64) 是适于64位 Windows 机器上的 Ruby 2.0.0 x64 安装包。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过安装包安装&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;最好保持默认的路径 &lt;code class=&quot;highlighter-rouge&quot;&gt;C:\Ruby200-x64&lt;/code&gt;，
+因为安装包明确提出 “请不要使用带有空格的文件夹 (如： Program Files)”。&lt;/li&gt;
+      &lt;li&gt;勾选 “Add Ruby executables to your PATH”，这样执行程序会被自动添加至 PATH 而避免不必要的头疼。&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;&lt;a class=&quot;post-image&quot; href=&quot;/assets/images/posts/2013-05-11-ruby-installer.png&quot;&gt;
+ &lt;img itemprop=&quot;image&quot; data-src=&quot;/assets/images/posts/2013-05-11-ruby-installer.png&quot; src=&quot;/assets/javascripts/unveil/loader.gif&quot; alt=&quot;Windows Ruby 安装包&quot; /&gt;
+ &lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;打开一个命令提示行并输入以下命令来检测 Ruby 是否成功安装。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;ruby -v&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;输出示例：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;ruby 2.0.0p451 (2014-02-24) [x64-mingw32]&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;install-devkit&quot;&gt;安装 DevKit&lt;/h2&gt;
+
+&lt;p&gt;DevKit 是一个在 Windows 上帮助简化安装及使用 Ruby C/C++ 扩展如 RDiscount 和 RedCloth 的工具箱。
+详细的安装指南可以在程序的 &lt;a href=&quot;https://github.com/oneclick/rubyinstaller/wiki/Development-Kit#installation-instructions&quot;&gt;wiki 页面&lt;/a&gt; 阅读。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;再次前往 &lt;a href=&quot;http://rubyinstaller.org/downloads/&quot;&gt;http://rubyinstaller.org/downloads/&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;下载同系统及 Ruby 版本相对应的 DevKit 安装包。
+例如，DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe 适用于64位 Windows 系统上的 Ruby 2.0.0 x64。&lt;/p&gt;
+
+    &lt;p&gt;下面列出了如何选择正确的 DevKit 版本：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;&lt;strong&gt;Ruby 1.8.6 to 1.9.3&lt;/strong&gt;: DevKit tdm-32-4.5.2&lt;br /&gt;
+&lt;strong&gt;Ruby 2.0.0&lt;/strong&gt;: DevKit mingw64-32-4.7.2&lt;br /&gt;
+&lt;strong&gt;Ruby 2.0.0 x64&lt;/strong&gt;: DevKit mingw64-64-4.7.2&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;运行安装包并解压缩至某文件夹，如 C:\DevKit&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过初始化来创建 config.yml 文件。在命令行窗口内，输入下列命令：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;cd “C:\DevKit”&lt;br /&gt;
+ruby dk.rb init&lt;br /&gt;
+notepad config.yml&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在打开的记事本窗口中，于末尾添加新的一行 &lt;code class=&quot;highlighter-rouge&quot;&gt;- C:\Ruby200-x64&lt;/code&gt;，保存文件并退出。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;回到命令行窗口内，审查（非必须）并安装。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;ruby dk.rb review&lt;br /&gt;
+ruby dk.rb install&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;install-jekyll&quot;&gt;安装 Jekyll&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;确保 gem 已经正确安装&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;gem -v&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;输出示例：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;2.0.14&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;安装 Jekyll gem&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;gem install jekyll&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;install-pygements&quot;&gt;安装 Pygments&lt;/h2&gt;
+
+&lt;p&gt;Jekyll 里默认的语法高亮插件是 &lt;a href=&quot;http://pygments.org/&quot;&gt;Pygments&lt;/a&gt;。
+它需要安装 Python 并在网站的配置文件 &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt; 里将 &lt;code class=&quot;highlighter-rouge&quot;&gt;highlighter&lt;/code&gt; 的值设置为 &lt;code class=&quot;highlighter-rouge&quot;&gt;pygments&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;不久之前，Jekyll 还添加另一个高亮引擎名为 &lt;a href=&quot;https://github.com/jayferd/rouge&quot;&gt;Rouge&lt;/a&gt;，
+尽管暂时不如 Pygments 支持那么多的语言，但它是原生 Ruby 程序，而不需要使用 Python。
+更多信息请&lt;a href=&quot;http://jekyllrb.com/docs/templates/#code_snippet_highlighting&quot;&gt;点此&lt;/a&gt;关注。&lt;/p&gt;
+
+&lt;h3 id=&quot;install-python&quot;&gt;安装 Python&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;前往 &lt;a href=&quot;http://www.python.org/download/&quot;&gt;http://www.python.org/download/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;下载合适的 Python windows 安装包，如 Python 2.7.6 Windows Installer。 请注意，Python 2 可能会更合适，因为暂时 Python 3 可能不会正常工作。&lt;/li&gt;
+  &lt;li&gt;安装&lt;/li&gt;
+  &lt;li&gt;添加安装路径 (如： C:\Python27) 至 PATH。(如何操作? 请参见 &lt;a href=&quot;#troubleshooting&quot;&gt;故障诊断 #1&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;检验 Python 安装是否成功&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;python –version&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;输出示例：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Python 2.7.6&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;install-easy-install&quot;&gt;安装 ‘Easy Install’&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;浏览 &lt;a href=&quot;https://pypi.python.org/pypi/setuptools#installation-instructions&quot;&gt;https://pypi.python.org/pypi/setuptools#installation-instructions&lt;/a&gt; 来查看详细的安装指南。&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;对于 Windows 7 的机器，下载 &lt;a href=&quot;https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py&quot;&gt;ez_setup.py&lt;/a&gt; 并保存，例如，至&lt;code class=&quot;highlighter-rouge&quot;&gt;C:\&lt;/code&gt;。
+然后从命令行使用 Python 运行此文件：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;python “C:\ez_setup.py”&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;添加 ‘Python Scripts’ 路径 (如： C:\Python27\Scripts) 至 PATH&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;install-pygements-2&quot;&gt;安装 Pygments&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;确保 easy_install 已经正确安装&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;easy_install –version&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;输出示例：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;setuptools 3.1&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;使用 “easy_install” 来安装 Pygments&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;easy_install Pygments&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;start-jekyll&quot;&gt;启动 Jekyll&lt;/h2&gt;
+
+&lt;p&gt;按照官方的 &lt;a href=&quot;http://jekyllrb.com/docs/quickstart/&quot;&gt;Jekyll 快速开始手册&lt;/a&gt;
+的步骤， 一个新的 Jekyll 博客可以被建立并在 &lt;a href=&quot;http://localhost:4000&quot;&gt;localhost:4000&lt;/a&gt;浏览。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;jekyll new myblog&lt;br /&gt;
+cd myblog&lt;br /&gt;
+jekyll serve&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;troubleshooting&quot;&gt;故障诊断&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;错误信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;“python” is not recognized as an internal or external command, operable program or batch file.
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;其他情况&lt;/strong&gt;： 这里的 “python” 也可能是 “ruby”， “gem” 或是 “easy_install” 等。&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： 该程序可能未被正确地安装或未在 PATH 里设置成功。&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;： 确保程序已被正确安装。然后手动将其添加至 PATH，请参考如下步骤&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;ol&gt;
+        &lt;li&gt;按住 Win 键再按下 Pause&lt;/li&gt;
+        &lt;li&gt;点击 Advanced System Settings&lt;/li&gt;
+        &lt;li&gt;点击 Environment Variables&lt;/li&gt;
+        &lt;li&gt;将 ;C:\python27 添加至 Path 变量的末尾&lt;/li&gt;
+        &lt;li&gt;重启命令行&lt;/li&gt;
+      &lt;/ol&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;错误信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ERROR:  Error installing jekyll:
+ERROR: Failed to build gem native extension.
+
+&quot;C:/Program Files/Ruby/Ruby200-x64/bin/ruby.exe&quot; extconf.rb
+
+creating Makefile
+make generating stemmer-x64-mingw32.def
+compiling porter.c
+...
+make install
+/usr/bin/install -c -m 0755 stemmer.so C:/Program Files/Ruby/Ruby200-x64/lib/ruby/gems/2.0.0/gems/fast-stemmer-1.0.2/li
+/usr/bin/install: target `Files/Ruby/Ruby200-x64/lib/ruby/gems/2.0.0/gems/fast-stemmer-1.0.2/lib' is not a directory
+make: *** [install-so] Error 1
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： Ruby 被安装在含有空格的路径里。&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;： 重新安装 Ruby，这次请不要使用带有空格的路径，或者请直接选择使用默认路径。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;错误信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Generating... Liquid Exception: No such file or directory - python c:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/pygments.rb-0.4.2/lib/pygments/mentos.py in 2013-04-22-yizeng-hello-world.md
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： Pygments 未能被正确安装或是 PATH 设置尚未生效。&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;： 首先请确保 Pygments 已成功安装且 Python 的 PATH 设置正确未包含空格和最后多余的斜杠。
+ 然后重启命令行。如果依旧失败，请尝试注销并重新登录 Windows。
+ 甚至使用终极解法，重启电脑。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;错误信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Generating... Liquid Exception: No such file or directory - /bin/sh in _posts/2013-04-22-yizeng-hello-world.md
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： 与 pygments.rb 0.5.1/0.5.2 版本的兼容性问题。&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;： 将 pygments.rb gem 的版本从 0.5.1/0.5.2 降至 0.5.0。&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;gem uninstall pygments.rb –version ‘=0.5.2’&lt;br /&gt;
+gem install pygments.rb –version 0.5.0&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;错误信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c:/Ruby200-x64/lib/ruby/2.0.0/rubygems/dependency.rb:296:in `to_specs': Could not find 'pygments.rb' (~&amp;gt; 0.4.2) - did find: [pygments.rb-0.5.0] (Gem::LoadError)
+from c:/Ruby200-x64/lib/ruby/2.0.0/rubygems/specification.rb:1196:in `block in activate_dependencies'
+from c:/Ruby200-x64/lib/ruby/2.0.0/rubygems/specification.rb:1185:in `each'
+from c:/Ruby200-x64/lib/ruby/2.0.0/rubygems/specification.rb:1185:in `activate_dependencies'
+from c:/Ruby200-x64/lib/ruby/2.0.0/rubygems/specification.rb:1167:in `activate'
+from c:/Ruby200-x64/lib/ruby/2.0.0/rubygems/core_ext/kernel_gem.rb:48:in`gem'
+from c:/Ruby200-x64/bin/jekyll:22:in `&amp;lt;main&amp;gt;'`
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;：如错误信息所述，找不到 pygments.rb 0.4.2，仅找到 pygments.rb 0.5.0。 （此问题出现于此文初稿时的 Jekyll 版本，现版本应已修复）&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;： 将 pygments.rb gem 的版本降级至 0.4.2&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;gem uninstall pygments.rb –version “=0.5.0”&lt;br /&gt;
+gem install pygments.rb –version “=0.4.2”&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;错误信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Generating... You are missing a library required for Markdown. Please run:
+$ [sudo] gem install rdiscount
+Conversion error: There was an error converting '_posts/2013-04-22-yizeng-hello-world.md/#excerpt'.
+
+ERROR: YOUR SITE COULD NOT BE BUILT:
+   ------------------------------------
+   Missing dependency: rdiscount
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： 依赖包 &lt;code class=&quot;highlighter-rouge&quot;&gt;rdiscount&lt;/code&gt; 未找到。
+ 此问题最有可能的原因是，网站使用的是 &lt;a href=&quot;https://github.com/davidfstr/RDiscount&quot;&gt;rdiscount&lt;/a&gt; 作为 Markdown 引擎，而不是 Jekyll 默认的引擎，故需要手动自行安装。&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;gem install rdiscount&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;错误信息：&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;c:/Ruby200-x64/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:55:in `require': cannot load such file -- wdm (LoadError)
+from c:/Ruby200-x64/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+from c:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/listen-1.3.1/lib/listen/adapter.rb:207:in `load_dependent_adapter'
+from c:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/listen-1.3.1/lib/listen/adapters/windows.rb:33:in `load_dependent_a
+dapter'
+...
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： &lt;code class=&quot;highlighter-rouge&quot;&gt;wdm&lt;/code&gt; gem 未被安装。因为 Jekyll 只官方地支持 *nix 系统，所以 &lt;a href=&quot;https://github.com/Maher4Ever/wdm&quot;&gt;Windows Directory Monitor&lt;/a&gt; 并没有作为依赖包而被自动安装。&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;：&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;gem install wdm&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/a/6318188/1177636&quot;&gt;在 Windows 7 上添加 Python Path&lt;/a&gt; by melhosseiny.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="jekyll" /><category term="ruby" /><category term="windows" /><summary type="html">若想查看原文，请点击本链接。</summary></entry></feed>

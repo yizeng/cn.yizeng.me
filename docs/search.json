@@ -1,0 +1,66 @@
+[
+  
+    {
+      "title"      : "在运行时更新 App.config 里的 AppSettings 属性及自定义配置节",
+      "url"        : "/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime/",
+      "date"       : "2013-08-31 00:00:00 +1200",
+      "shortdate"  : "August 31, 2013"
+    } ,
+  
+    {
+      "title"      : "使用 Selenium WebDriver C# 和 Ruby 给浏览器设置 User Agent",
+      "url"        : "/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/",
+      "date"       : "2013-08-10 00:00:00 +1200",
+      "shortdate"  : "August 10, 2013"
+    } ,
+  
+    {
+      "title"      : "在 GNOME 中反转触摸板而不改变鼠标键位",
+      "url"        : "/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome/",
+      "date"       : "2013-07-14 00:00:00 +1200",
+      "shortdate"  : "July 14, 2013"
+    } ,
+  
+    {
+      "title"      : "在 Linux Mint 上安装 TortoiseHg",
+      "url"        : "/2013/07/02/install-tortoisehg-on-linux-mint/",
+      "date"       : "2013-07-02 00:00:00 +1200",
+      "shortdate"  : "July 02, 2013"
+    } ,
+  
+    {
+      "title"      : "在 Travis CI 上创建 Selenium WebDriver Ruby 项目",
+      "url"        : "/2013/06/15/setup-a-selenium-webdriver-ruby-project-on-travis-ci/",
+      "date"       : "2013-06-15 00:00:00 +1200",
+      "shortdate"  : "June 15, 2013"
+    } ,
+  
+    {
+      "title"      : "创建自定义的 Jekyll 404 页面",
+      "url"        : "/2013/05/26/create-a-custom-jekyll-404-page/",
+      "date"       : "2013-05-26 00:00:00 +1200",
+      "shortdate"  : "May 26, 2013"
+    } ,
+  
+    {
+      "title"      : "如何使用 _netrc 来避免 TortoiseGit 要求输入用户名和密码",
+      "url"        : "/2013/05/19/use-_netrc-to-avoid-tortoisegit-asking-for-username-and-password/",
+      "date"       : "2013-05-19 00:00:00 +1200",
+      "shortdate"  : "May 19, 2013"
+    } ,
+  
+    {
+      "title"      : "Jekyll 使用过程中的一些常用的 RubyGems 命令",
+      "url"        : "/2013/05/17/quick-rubygems-command-references-for-jekyll/",
+      "date"       : "2013-05-17 00:00:00 +1200",
+      "shortdate"  : "May 17, 2013"
+    } ,
+  
+    {
+      "title"      : "在 Windows 上安装 Jekyll",
+      "url"        : "/2013/05/10/setup-jekyll-on-windows/",
+      "date"       : "2013-05-10 00:00:00 +1200",
+      "shortdate"  : "May 10, 2013"
+    } 
+  
+]

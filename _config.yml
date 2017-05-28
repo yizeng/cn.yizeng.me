@@ -1,6 +1,6 @@
 # Site Settings
 encoding: UTF-8
-exclude: ["*.gem", "*.gemspec", "Gemfile", "Gemfile.lock", "node_modules", "Rakefile", "starter-kit", "vendor"]
+exclude: ["*.gem", "*.gemspec", "docs", "Gemfile", "Gemfile.lock", "node_modules", "Rakefile", "starter-kit", "vendor"]
 lang: cn
 permalink: /:year/:month/:day/:title/
 theme: jekyll-theme-simple-texture
