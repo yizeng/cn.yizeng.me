@@ -48,9 +48,9 @@ author:
     - name: vk
       url: https://vk.com/yi.zeng
 home:
-  h1: Yi Zeng
-  h2: Software Engineer
-  h3: Christchurch, New Zealand
+  section1: <h1>Yi Zeng</h1>
+  section2: <h2>Software Engineer</h2>
+  section3: <h3>Christchurch, New Zealand</h3>
 blog:
   cc_license: http://creativecommons.org/licenses/by-sa/4.0/ # A link to CC License
   cc_license_image: /assets/images/theme/cc-by-sa.png # Choose one at https://creativecommons.org/choose/
