@@ -8,11 +8,14 @@ last_updated: January 08, 2017
 redirect_from:
   - /2013/08/10/
 ---
+
+> 最近更新于 - 2017年1月8日
+
 本文将展示如何使用 Selenium WebDriver C# and Ruby 给 Chrome，Firefox，IE，PhantomJS 浏览器设置 User Agent 的方法。
 
 > 环境:<br />
-> Linux Mint 16, Ruby 2.1.1p76, Selenium 2.41.0, ChromDriver 2.9<br/>
-> Firefox 28.0, Chrome 33, PhantomJS 1.9.7
+> Mac OS Sierra, Ruby 2.3.1p112, Selenium 3.0.5, ChromDriver 2.26, GeckoDriver 0.13
+> Firefox 50.1, Chrome 55, PhantomJS 1.9.8
 >
 > User Agent 示例（ipad）:<br />
 > Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10

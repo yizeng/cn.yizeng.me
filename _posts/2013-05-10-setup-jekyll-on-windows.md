@@ -1,13 +1,17 @@
 ---
 layout: post
-title: "在 Windows 上安装 Jekyll"
-description: "如何在 Windows 上安装 Jekyll"
+title: "在 Windows 上安装 Jekyll 3"
+description: "如何在 Windows 上安装 Jekyll 3"
 categories: [笔记]
 tags: [jekyll, ruby, windows]
 redirect_from:
   - /2013/05/10/
+last_updated: 2017年1月7日
 ---
+
 > 若想查看原文，请点击[本链接](http://yizeng.me/2013/05/10/install-jekyll-3-on-windows/)。
+>
+> 最近更新于 - 2017年1月7日
 
 * Kramdown table of contents
 {:toc .toc}
@@ -18,11 +22,11 @@ redirect_from:
 1. 前往 <http://rubyinstaller.org/downloads/>
 
 2. 在 "RubyInstallers" 部分，选择某个版本点击下载。<br />
-   例如， Ruby 2.0.0-p451 (x64) 是适于64位 Windows 机器上的 Ruby 2.0.0 x64 安装包。
+   例如，`Ruby 2.3.3-p222 (x64)` 是适于64位 Windows 机器上的 Ruby 2.3.3 x64 安装包。
 
 3. 通过安装包安装
 
-	- 最好保持默认的路径 `C:\Ruby200-x64`，
+	- 最好保持默认的路径 `C:/Ruby23-x64`，
 	  因为安装包明确提出 “请不要使用带有空格的文件夹 (如： Program Files)”。
 	- 勾选 "Add Ruby executables to your PATH"，这样执行程序会被自动添加至 PATH 而避免不必要的头疼。
 
@@ -36,7 +40,7 @@ redirect_from:
 
 	输出示例：
 
-	> ruby 2.0.0p451 (2014-02-24) [x64-mingw32]
+	> ruby 2.3.3p222 (2016-11-21 revision 56859) [x64-mingw32]
 
 ## 安装 DevKit
 {: #install-devkit}
@@ -47,7 +51,7 @@ DevKit 是一个在 Windows 上帮助简化安装及使用 Ruby C/C++ 扩展如 
 1. 再次前往 <http://rubyinstaller.org/downloads/>
 
 2. 下载同系统及 Ruby 版本相对应的 DevKit 安装包。
-   例如，DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe 适用于64位 Windows 系统上的 Ruby 2.0.0 x64。
+   例如，DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe 适用于64位 Windows 系统上的 Ruby 2.3.3 x64。
 
 	下面列出了如何选择正确的 DevKit 版本：
 
@@ -57,13 +61,12 @@ DevKit 是一个在 Windows 上帮助简化安装及使用 Ruby C/C++ 扩展如 
 
 3. 运行安装包并解压缩至某文件夹，如 C:\DevKit
 
-4. 通过初始化来创建 config.yml 文件。在命令行窗口内，输入下列命令：
+4. 通过初始化来创建 config.yml 文件。在 `C:\DevKit` 文件夹内打开命令行窗口，输入下列命令：
 
-	> cd "C:\DevKit"<br />
 	> ruby dk.rb init<br />
 	> notepad config.yml
 
-5. 在打开的记事本窗口中，于末尾添加新的一行 `- C:\Ruby200-x64`，保存文件并退出。
+5. 在打开的记事本窗口中，于末尾添加新的一行 `- C:/Ruby23-x64`，保存文件并退出。
 
 6. 回到命令行窗口内，审查（非必须）并安装。
 
@@ -79,62 +82,27 @@ DevKit 是一个在 Windows 上帮助简化安装及使用 Ruby C/C++ 扩展如 
 
 	输出示例：
 
-	> 2.0.14
+	> 2.6.8
 
-2. 安装 Jekyll gem
+2. 安装 Jekyll 和 [Bundler](http://bundler.io/) gems
 
-	> gem install jekyll
+	> gem install jekyll bundler
 
-## 安装 Pygments
-{: #install-pygements}
+3. 确保 jekyll gem 已经正确安装
 
-Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
-它需要安装 Python 并在网站的配置文件 `_config.yml` 里将 `highlighter` 的值设置为 `pygments`。
+	> jekyll -v
 
-不久之前，Jekyll 还添加另一个高亮引擎名为 [Rouge](https://github.com/jayferd/rouge)，
-尽管暂时不如 Pygments 支持那么多的语言，但它是原生 Ruby 程序，而不需要使用 Python。
-更多信息请[点此](http://jekyllrb.com/docs/templates/#code_snippet_highlighting)关注。
+    输出示例:
 
-### 安装 Python
-{: #install-python}
+	> jekyll 3.3.1
 
-1. 前往 <http://www.python.org/download/>
-2. 下载合适的 Python windows 安装包，如 Python 2.7.6 Windows Installer。 请注意，Python 2 可能会更合适，因为暂时 Python 3 可能不会正常工作。
-3. 安装
-4. 添加安装路径 (如： C:\Python27) 至 PATH。(如何操作? 请参见 [故障诊断 #1](#troubleshooting))
-5. 检验 Python 安装是否成功
+4. 确保 bundler gem 已经正确安装
 
-	> python --version
+	> bundle -v
 
-	输出示例：
+    输出示例:
 
-	> Python 2.7.6
-
-### 安装 'Easy Install'
-{: #install-easy-install}
-
-1. 浏览 <https://pypi.python.org/pypi/setuptools#installation-instructions> 来查看详细的安装指南。
-2. 对于 Windows 7 的机器，下载 [ez_setup.py](https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py) 并保存，例如，至`C:\`。
-   然后从命令行使用 Python 运行此文件：
-
-	> python "C:\ez_setup.py"
-
-3. 添加 'Python Scripts' 路径 (如： C:\Python27\Scripts) 至 PATH
-
-### 安装 Pygments
-{: #install-pygements-2}
-
-1. 确保 easy_install 已经正确安装
-
-	> easy_install --version
-
-	输出示例：
-
-	> setuptools 3.1
-
-2. 使用 "easy_install" 来安装 Pygments
-
-	> easy_install Pygments
+	> Bundler version 1.13.7
 
 ## 启动 Jekyll
 {: #start-jekyll}
@@ -144,16 +112,18 @@ Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
 
 > jekyll new myblog<br />
 > cd myblog<br />
-> jekyll serve
+> bundle exec jekyll serve
+
+<a class="post-image" href="/assets/images/posts/2013-05-11-new-jekyll-3-site.png">
+<img itemprop="image" data-src="/assets/images/posts/2013-05-11-new-jekyll-3-site.png" src="/assets/javascripts/unveil/loader.gif" alt="New Jekyll 3 Site" />
+</a>
 
 ## 故障诊断
 {: #troubleshooting}
 
 1. 错误信息：
 
-	   “python” is not recognized as an internal or external command, operable program or batch file.
-
-	**其他情况**： 这里的 "python" 也可能是 "ruby"， "gem" 或是 "easy_install" 等。
+	   "ruby" is not recognized as an internal or external command, operable program or batch file.
 
 	**可能原因**： 该程序可能未被正确地安装或未在 PATH 里设置成功。
 
@@ -162,7 +132,7 @@ Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
 	> 1. 按住 Win 键再按下 Pause
 	> 2. 点击 Advanced System Settings
 	> 3. 点击 Environment Variables
-	> 4. 将 ;C:\python27 添加至 Path 变量的末尾
+	> 4. 将 `;C:\Ruby23-x64\bin` 添加至 Path 变量的末尾
 	> 5. 重启命令行
 
 2. 错误信息：
@@ -170,7 +140,7 @@ Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
 	   ERROR:  Error installing jekyll:
 	   ERROR: Failed to build gem native extension.
 
-	   "C:/Program Files/Ruby/Ruby200-x64/bin/ruby.exe" extconf.rb
+	   "C:/Program Files/Ruby23-x64/bin/ruby.exe" extconf.rb
 
 	   creating Makefile
 	   make generating stemmer-x64-mingw32.def
@@ -187,15 +157,25 @@ Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
 
 3. 错误信息：
 
+       New jekyll site installed in C:/Code/GitHub/blog.
+        Dependency Error: Yikes! It looks like you don't have bundler or one of its dependencies installed. In order to use Jekyll as currently configured, you'll need to install this gem. The full error message from Ruby is: 'cannot load such file -- bundler' If you run into trouble, you can find helpful resources at http://jekyllrb.com/help/!
+       jekyll 3.3.1 | Error:  bundler
+
+     **可能原因**: Bundler gem 未被正确安装.
+
+     **尝试解法**: 运行命令 `gem install bundler`
+
+4. 错误信息：
+
 	   Generating... Liquid Exception: No such file or directory - python c:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/pygments.rb-0.4.2/lib/pygments/mentos.py in 2013-04-22-yizeng-hello-world.md
 
-	**可能原因**： Pygments 未能被正确安装或是 PATH 设置尚未生效。
+	**可能原因**： 如果你正在使用 Jekyll 2 和 Pygments， 这个错误很可能意味着 Pygments 未能被正确安装或是 PATH 设置尚未生效。
 
 	**尝试解法**： 首先请确保 Pygments 已成功安装且 Python 的 PATH 设置正确未包含空格和最后多余的斜杠。
     然后重启命令行。如果依旧失败，请尝试注销并重新登录 Windows。
     甚至使用终极解法，重启电脑。
 
-4. 错误信息：
+5. 错误信息：
 
 	   Generating... Liquid Exception: No such file or directory - /bin/sh in _posts/2013-04-22-yizeng-hello-world.md
 
@@ -203,10 +183,10 @@ Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
 
 	**尝试解法**： 将 pygments.rb gem 的版本从 0.5.1/0.5.2 降至 0.5.0。
 
-	> gem uninstall pygments.rb --version '=0.5.2'<br />
-	> gem install pygments.rb --version 0.5.0
+	> gem uninstall pygments.rb \--version '=0.5.2'<br />
+	> gem install pygments.rb \--version 0.5.0
 
-5. 错误信息：
+6. 错误信息：
 
 	   c:/Ruby200-x64/lib/ruby/2.0.0/rubygems/dependency.rb:296:in `to_specs': Could not find 'pygments.rb' (~> 0.4.2) - did find: [pygments.rb-0.5.0] (Gem::LoadError)
 	   from c:/Ruby200-x64/lib/ruby/2.0.0/rubygems/specification.rb:1196:in `block in activate_dependencies'
@@ -220,10 +200,10 @@ Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
 
 	**尝试解法**： 将 pygments.rb gem 的版本降级至 0.4.2
 
-	> gem uninstall pygments.rb --version “=0.5.0”<br />
-	> gem install pygments.rb --version “=0.4.2”
+	> gem uninstall pygments.rb \--version “=0.5.0”<br />
+	> gem install pygments.rb \--version “=0.4.2”
 
-6. 错误信息：
+7. 错误信息：
 
 	   Generating... You are missing a library required for Markdown. Please run:
 	   $ [sudo] gem install rdiscount
@@ -233,14 +213,12 @@ Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
 	      ------------------------------------
 	      Missing dependency: rdiscount
 
-	**可能原因**： 依赖包 `rdiscount` 未找到。
+	**可能原因**： 如果你还是在使用 Jekyll 2, 这个错误很可能是因为依赖包 `rdiscount` 未找到。
 	此问题最有可能的原因是，网站使用的是 [rdiscount](https://github.com/davidfstr/RDiscount) 作为 Markdown 引擎，而不是 Jekyll 默认的引擎，故需要手动自行安装。
 
-	**尝试解法**：
+	**尝试解法**：运行 `gem install rdiscount`
 
-	> gem install rdiscount
-
-7. 错误信息：
+8. 错误信息：
 
 	   c:/Ruby200-x64/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:55:in `require': cannot load such file -- wdm (LoadError)
 	   from c:/Ruby200-x64/lib/ruby/site_ruby/2.0.0/rubygems/core_ext/kernel_require.rb:55:in `require'
@@ -251,9 +229,7 @@ Jekyll 里默认的语法高亮插件是 [Pygments](http://pygments.org/)。
 
 	**可能原因**： `wdm` gem 未被安装。因为 Jekyll 只官方地支持 *nix 系统，所以 [Windows Directory Monitor][WDM] 并没有作为依赖包而被自动安装。
 
-	**尝试解法**：
-
-	> gem install wdm
+	**尝试解法**：将 `gem 'wdm', '>= 0.1.0' if Gem.win_platform?` 加入 `Gemfile` 文件，然后再次运行 `bundle install`.
 
 [Full installation instructions]: https://github.com/oneclick/rubyinstaller/wiki/Development-Kit#installation-instructions
 [Jekyll Quick-start guide]: http://jekyllrb.com/docs/quickstart/
