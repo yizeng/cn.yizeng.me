@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="cn"><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://cn.yizeng.me/feed.xml" rel="self" type="application/atom+xml" /><link href="http://cn.yizeng.me/" rel="alternate" type="text/html" hreflang="cn" /><updated>2017-05-28T20:46:58+12:00</updated><id>http://cn.yizeng.me/</id><title type="html">Yi Zeng</title><subtitle>Yi Zeng 的中文版个人网站</subtitle><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><entry><title type="html">在运行时更新 App.config 里的 AppSettings 属性及自定义配置节</title><link href="http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime/" rel="alternate" type="text/html" title="在运行时更新 App.config 里的 AppSettings 属性及自定义配置节" /><published>2013-08-31T00:00:00+12:00</published><updated>2013-08-31T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime</id><content type="html" xml:base="http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime/">&lt;p&gt;本文展示了如何在运行时更新（添加，修改或删除）&lt;code class=&quot;highlighter-rouge&quot;&gt;App.config&lt;/code&gt; 里的 &lt;code class=&quot;highlighter-rouge&quot;&gt;AppSettings&lt;/code&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="cn"><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="http://cn.yizeng.me/feed.xml" rel="self" type="application/atom+xml" /><link href="http://cn.yizeng.me/" rel="alternate" type="text/html" hreflang="cn" /><updated>2017-05-29T20:40:24+12:00</updated><id>http://cn.yizeng.me/</id><title type="html">Yi Zeng</title><subtitle>Yi Zeng 的中文版个人网站</subtitle><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><entry><title type="html">在运行时更新 App.config 里的 AppSettings 属性及自定义配置节</title><link href="http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime/" rel="alternate" type="text/html" title="在运行时更新 App.config 里的 AppSettings 属性及自定义配置节" /><published>2013-08-31T00:00:00+12:00</published><updated>2013-08-31T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime</id><content type="html" xml:base="http://cn.yizeng.me/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime/">&lt;p&gt;本文展示了如何在运行时更新（添加，修改或删除）&lt;code class=&quot;highlighter-rouge&quot;&gt;App.config&lt;/code&gt; 里的 &lt;code class=&quot;highlighter-rouge&quot;&gt;AppSettings&lt;/code&gt;
 属性及自定义配置节。&lt;/p&gt;
 
 &lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
@@ -121,12 +121,16 @@
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/q/8807218/1177636&quot;&gt;Modifying app.config at runtime throws exception&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/q/8522912/1177636&quot;&gt;update app.config file programatically with ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/q/8130085/1177636&quot;&gt;Opening the machine/base Web.Config (64bit) through code&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="c#" /><category term=".net" /><summary type="html">本文展示了如何在运行时更新（添加，修改或删除）App.config 里的 AppSettings 属性及自定义配置节。</summary></entry><entry><title type="html">使用 Selenium WebDriver C# 和 Ruby 给浏览器设置 User Agent</title><link href="http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/" rel="alternate" type="text/html" title="使用 Selenium WebDriver C# 和 Ruby 给浏览器设置 User Agent" /><published>2013-08-10T00:00:00+12:00</published><updated>2013-08-10T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby</id><content type="html" xml:base="http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/">&lt;p&gt;本文将展示如何使用 Selenium WebDriver C# and Ruby 给 Chrome，Firefox，IE，PhantomJS 浏览器设置 User Agent 的方法。&lt;/p&gt;
+&lt;/ol&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="c#" /><category term=".net" /><summary type="html">本文展示了如何在运行时更新（添加，修改或删除）App.config 里的 AppSettings 属性及自定义配置节。</summary></entry><entry><title type="html">使用 Selenium WebDriver C# 和 Ruby 给浏览器设置 User Agent</title><link href="http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/" rel="alternate" type="text/html" title="使用 Selenium WebDriver C# 和 Ruby 给浏览器设置 User Agent" /><published>2013-08-10T00:00:00+12:00</published><updated>2013-08-10T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby</id><content type="html" xml:base="http://cn.yizeng.me/2013/08/10/set-user-agent-using-selenium-webdriver-c-and-ruby/">&lt;blockquote&gt;
+  &lt;p&gt;最近更新于 - 2017年1月8日&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;本文将展示如何使用 Selenium WebDriver C# and Ruby 给 Chrome，Firefox，IE，PhantomJS 浏览器设置 User Agent 的方法。&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;环境:&lt;br /&gt;
-Linux Mint 16, Ruby 2.1.1p76, Selenium 2.41.0, ChromDriver 2.9&lt;br /&gt;
-Firefox 28.0, Chrome 33, PhantomJS 1.9.7&lt;/p&gt;
+Mac OS Sierra, Ruby 2.3.1p112, Selenium 3.0.5, ChromDriver 2.26, GeckoDriver 0.13
+Firefox 50.1, Chrome 55, PhantomJS 1.9.8&lt;/p&gt;
 
   &lt;p&gt;User Agent 示例（ipad）:&lt;br /&gt;
 Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B314 Safari/531.21.10&lt;/p&gt;
@@ -209,14 +213,14 @@ Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.
 
 &lt;blockquote&gt;
   &lt;p&gt;The IE driver does not support changing the user agent, using capabilities or otherwise. Full stop.&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="c#" /><category term="ruby" /><category term="selenium webdriver" /><summary type="html">本文将展示如何使用 Selenium WebDriver C# and Ruby 给 Chrome，Firefox，IE，PhantomJS 浏览器设置 User Agent 的方法。</summary></entry><entry><title type="html">在 GNOME 中反转触摸板而不改变鼠标键位</title><link href="http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome/" rel="alternate" type="text/html" title="在 GNOME 中反转触摸板而不改变鼠标键位" /><published>2013-07-14T00:00:00+12:00</published><updated>2013-07-14T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome</id><content type="html" xml:base="http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome/">&lt;p&gt;作为一个使用反转了左右键位的触摸板，却使用正常键位鼠标的左撇子用户，在安装了 Linux Mint 15 Cinnamon 桌面之后，不能从 “System Settings -&amp;gt; Mouse and Touchpad” 分别设置触摸板和鼠标的左右键位是一件很恼人的事情。&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="c#" /><category term="ruby" /><category term="selenium webdriver" /><summary type="html">最近更新于 - 2017年1月8日</summary></entry><entry><title type="html">在 GNOME 中反转触摸板而不改变鼠标键位</title><link href="http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome/" rel="alternate" type="text/html" title="在 GNOME 中反转触摸板而不改变鼠标键位" /><published>2013-07-14T00:00:00+12:00</published><updated>2013-07-14T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome</id><content type="html" xml:base="http://cn.yizeng.me/2013/07/14/invert-touchpad-without-changing-mouse-in-gnome/">&lt;p&gt;作为一个使用反转了左右键位的触摸板，却使用正常键位鼠标的左撇子用户，在安装了 Linux Mint 15 Cinnamon 桌面之后，不能从 &quot;System Settings -&amp;gt; Mouse and Touchpad&quot; 分别设置触摸板和鼠标的左右键位是一件很恼人的事情。&lt;/p&gt;
 
 &lt;p&gt;不过在经过了短暂的研究后，受此 &lt;a href=&quot;http://askubuntu.com/q/83590/171955&quot;&gt;AskUbuntu 问答&lt;/a&gt;的启发，找到了一个简单的通过 &lt;a href=&quot;https://developer.gnome.org/gio/2.34/GSettings.html&quot;&gt;GSettings&lt;/a&gt; 来设置的解决方法。&lt;/p&gt;
 
 &lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#invert-touchpad&quot; id=&quot;markdown-toc-invert-touchpad&quot;&gt;反转触摸板&lt;/a&gt;    &lt;ul&gt;
       &lt;li&gt;&lt;a href=&quot;#using-cli&quot; id=&quot;markdown-toc-using-cli&quot;&gt;通过命令行&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#using-gui&quot; id=&quot;markdown-toc-using-gui&quot;&gt;通过图形化界面 “dconf-editor”&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#using-gui&quot; id=&quot;markdown-toc-using-gui&quot;&gt;通过图形化界面 &quot;dconf-editor&quot;&lt;/a&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#invert-mouse&quot; id=&quot;markdown-toc-invert-mouse&quot;&gt;反转鼠标&lt;/a&gt;&lt;/li&gt;
@@ -226,7 +230,7 @@ Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.
 
 &lt;h3 id=&quot;using-cli&quot;&gt;通过命令行&lt;/h3&gt;
 
-&lt;p&gt;在 Gsettings 里, &lt;code class=&quot;highlighter-rouge&quot;&gt;touchpad&lt;/code&gt; 下面有一个子键叫做 &lt;code class=&quot;highlighter-rouge&quot;&gt;left-handed&lt;/code&gt;，是用来控制触摸板的左右键位属性的，该子键是一个 string 类型，默认键值为 “mouse”，但可以设置成 “left” 或 “right”。&lt;/p&gt;
+&lt;p&gt;在 Gsettings 里, &lt;code class=&quot;highlighter-rouge&quot;&gt;touchpad&lt;/code&gt; 下面有一个子键叫做 &lt;code class=&quot;highlighter-rouge&quot;&gt;left-handed&lt;/code&gt;，是用来控制触摸板的左右键位属性的，该子键是一个 string 类型，默认键值为 &quot;mouse&quot;，但可以设置成 &quot;left&quot; 或 &quot;right&quot;。&lt;/p&gt;
 
 &lt;p&gt;通过终端，输入以下命令来将其设成左利手键位：&lt;/p&gt;
 
@@ -234,9 +238,9 @@ Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;using-gui&quot;&gt;通过图形化界面 “dconf-editor”&lt;/h3&gt;
+&lt;h3 id=&quot;using-gui&quot;&gt;通过图形化界面 &quot;dconf-editor&quot;&lt;/h3&gt;
 
-&lt;p&gt;Gsettings 有一个图形化工具叫做 “dconf-editor”， 它使用二进制大对象数据库来保存全部设置和键值。(两者之间的关系和 “Windows Regitry” 与 “regedit” 类似。)&lt;/p&gt;
+&lt;p&gt;Gsettings 有一个图形化工具叫做 &quot;dconf-editor&quot;， 它使用二进制大对象数据库来保存全部设置和键值。(两者之间的关系和 “Windows Regitry” 与 “regedit” 类似。)&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -263,11 +267,11 @@ Mozilla/5.0(iPad; U; CPU iPhone OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.
 
 &lt;h2 id=&quot;invert-mouse&quot;&gt;反转鼠标&lt;/h2&gt;
 
-&lt;p&gt;如果也想将鼠标的左右键位反转，可以通过命令行、“系统设置”或是 “dconf-editor” 来进行。不过请注意 &lt;code class=&quot;highlighter-rouge&quot;&gt;peripherals.mouse&lt;/code&gt; 下的子键 &lt;code class=&quot;highlighter-rouge&quot;&gt;left-handed&lt;/code&gt; 所保存的键值是布尔类型，即只应被设置为 “true” 或 “false”。&lt;/p&gt;
+&lt;p&gt;如果也想将鼠标的左右键位反转，可以通过命令行、“系统设置”或是 &quot;dconf-editor&quot; 来进行。不过请注意 &lt;code class=&quot;highlighter-rouge&quot;&gt;peripherals.mouse&lt;/code&gt; 下的子键 &lt;code class=&quot;highlighter-rouge&quot;&gt;left-handed&lt;/code&gt; 所保存的键值是布尔类型，即只应被设置为 &quot;true&quot; 或 &quot;false&quot;。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gsettings set org.gnome.settings-daemon.peripherals.mouse left-handed true
 &lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="linux mint" /><summary type="html">作为一个使用反转了左右键位的触摸板，却使用正常键位鼠标的左撇子用户，在安装了 Linux Mint 15 Cinnamon 桌面之后，不能从 “System Settings -&amp;gt; Mouse and Touchpad” 分别设置触摸板和鼠标的左右键位是一件很恼人的事情。</summary></entry><entry><title type="html">在 Linux Mint 上安装 TortoiseHg</title><link href="http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint/" rel="alternate" type="text/html" title="在 Linux Mint 上安装 TortoiseHg" /><published>2013-07-02T00:00:00+12:00</published><updated>2013-07-02T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint</id><content type="html" xml:base="http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint/">&lt;p&gt;本文记录了如何通过官方 &lt;a href=&quot;https://launchpad.net/~tortoisehg-ppa/+archive/releases&quot;&gt;TortoiseHg Release PPA&lt;/a&gt; 在 Linux Mint 15 上安装 &lt;a href=&quot;http://tortoisehg.bitbucket.org/&quot;&gt;TortoiseHg&lt;/a&gt;。&lt;/p&gt;
+&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="linux mint" /><summary type="html">作为一个使用反转了左右键位的触摸板，却使用正常键位鼠标的左撇子用户，在安装了 Linux Mint 15 Cinnamon 桌面之后，不能从 &quot;System Settings -&amp;gt; Mouse and Touchpad&quot; 分别设置触摸板和鼠标的左右键位是一件很恼人的事情。</summary></entry><entry><title type="html">在 Linux Mint 上安装 TortoiseHg</title><link href="http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint/" rel="alternate" type="text/html" title="在 Linux Mint 上安装 TortoiseHg" /><published>2013-07-02T00:00:00+12:00</published><updated>2013-07-02T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint</id><content type="html" xml:base="http://cn.yizeng.me/2013/07/02/install-tortoisehg-on-linux-mint/">&lt;p&gt;本文记录了如何通过官方 &lt;a href=&quot;https://launchpad.net/~tortoisehg-ppa/+archive/releases&quot;&gt;TortoiseHg Release PPA&lt;/a&gt; 在 Linux Mint 15 上安装 &lt;a href=&quot;http://tortoisehg.bitbucket.org/&quot;&gt;TortoiseHg&lt;/a&gt;。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：&lt;/p&gt;
 
@@ -346,7 +350,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 &lt;h2 id=&quot;create-repo&quot;&gt;在 Github 上创建一个代码仓库&lt;/h2&gt;
 
 &lt;p&gt;要想在 Travis CI 上运行项目，必须首先要在 Github 上创建一个代码仓库。
-如果还没有建立代码仓库，请前往 Github 的 &lt;a href=&quot;https://github.com/repositories/new&quot;&gt;‘Create a New Repository’&lt;/a&gt; 页面创建一个新的公开代码仓库。&lt;/p&gt;
+如果还没有建立代码仓库，请前往 Github 的 &lt;a href=&quot;https://github.com/repositories/new&quot;&gt;'Create a New Repository'&lt;/a&gt; 页面创建一个新的公开代码仓库。&lt;/p&gt;
 
 &lt;h2 id=&quot;create-project&quot;&gt;建立 Selenium WebDriver Ruby 项目&lt;/h2&gt;
 
@@ -551,7 +555,7 @@ branches 可以通过如 &lt;code class=&quot;highlighter-rouge&quot;&gt;?branch
 
 &lt;h2 id=&quot;add-front-matter&quot;&gt;添加 YAML Front Matter&lt;/h2&gt;
 
-&lt;p&gt;由于本文的目标是创建一个和其他所有页面主题一致的自定义 404 页面，而非重写一个单独的 404.html，所以首先添加&lt;a href=&quot;http://jekyllrb.com/docs/frontmatter/&quot;&gt;YAML Front Matter&lt;/a&gt;至 404.html 的头部并设置 layout 为 “page”。&lt;/p&gt;
+&lt;p&gt;由于本文的目标是创建一个和其他所有页面主题一致的自定义 404 页面，而非重写一个单独的 404.html，所以首先添加&lt;a href=&quot;http://jekyllrb.com/docs/frontmatter/&quot;&gt;YAML Front Matter&lt;/a&gt;至 404.html 的头部并设置 layout 为 &quot;page&quot;。&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
 layout: page
@@ -581,7 +585,7 @@ title: 404
     &lt;p&gt;在 Jekyll 的 default.html 文件里 (例如： 本网站的在 /_includes/themes/THEME_NAME/default.html), 在 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;head&amp;gt;&lt;/code&gt; 标签内添加一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;meta&amp;gt;&lt;/code&gt; 标签。 (&lt;a href=&quot;http://www.w3schools.com/tags/att_meta_http_equiv.asp&quot;&gt;W3schools 示例&lt;/a&gt;)&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;给 meta 标签添加一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;http-equiv&lt;/code&gt; 属性并设置为 “refresh”, i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;meta http-equiv=&quot;refresh&quot;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+    &lt;p&gt;给 meta 标签添加一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;http-equiv&lt;/code&gt; 属性并设置为 &quot;refresh&quot;, i.e &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;meta http-equiv=&quot;refresh&quot;&amp;gt;&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;再给 meta 标签添加一个 &lt;code class=&quot;highlighter-rouge&quot;&gt;content&lt;/code&gt; 属性并设置为 &lt;code class=&quot;highlighter-rouge&quot;&gt;content=&quot;5; url=/&quot;&lt;/code&gt;。
     &lt;ul&gt;
@@ -589,7 +593,7 @@ title: 404
       &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;url=/&lt;/code&gt; 设置了跳转的 URL， 可以被设置成任何链接，如 &lt;code class=&quot;highlighter-rouge&quot;&gt;url=http://yizeng.me&lt;/code&gt;。&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;使用 &lt;a href=&quot;http://wiki.shopify.com/Liquid#If_.2F_Else_.2F_Unless&quot;&gt;Liquid’s if-else&lt;/a&gt; 语句来确保自动跳转只发生于 &lt;code class=&quot;highlighter-rouge&quot;&gt;404.html&lt;/code&gt;。&lt;/li&gt;
+  &lt;li&gt;使用 &lt;a href=&quot;http://wiki.shopify.com/Liquid#If_.2F_Else_.2F_Unless&quot;&gt;Liquid's if-else&lt;/a&gt; 语句来确保自动跳转只发生于 &lt;code class=&quot;highlighter-rouge&quot;&gt;404.html&lt;/code&gt;。&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;script src=&quot;https://gist.github.com/yizeng/a4f26459bc8795476ed4.js&quot;&gt;&lt;/script&gt;
@@ -618,7 +622,7 @@ title: 404
       &lt;p&gt;官方文档内已经删除此句。&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
     &lt;li id=&quot;fn:2&quot;&gt;
-      &lt;p&gt;&lt;a href=&quot;http://www.w3schools.com/tags/att_meta_http_equiv.asp&quot;&gt;“HTML &amp;lt;meta&amp;gt; http-equiv Attribute” 实例&lt;/a&gt; by W3schools.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;a href=&quot;http://www.w3schools.com/tags/att_meta_http_equiv.asp&quot;&gt;&quot;HTML &amp;lt;meta&amp;gt; http-equiv Attribute&quot; 实例&lt;/a&gt; by W3schools.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
 &lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="jekyll" /><category term="github" /><summary type="html">若想查看原文，请点击本链接。</summary></entry><entry><title type="html">如何使用 _netrc 来避免 TortoiseGit 要求输入用户名和密码</title><link href="http://cn.yizeng.me/2013/05/19/use-_netrc-to-avoid-tortoisegit-asking-for-username-and-password/" rel="alternate" type="text/html" title="如何使用 _netrc 来避免 TortoiseGit 要求输入用户名和密码" /><published>2013-05-19T00:00:00+12:00</published><updated>2013-05-19T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/05/19/use-_netrc-to-avoid-tortoisegit-asking-for-username-and-password</id><content type="html" xml:base="http://cn.yizeng.me/2013/05/19/use-_netrc-to-avoid-tortoisegit-asking-for-username-and-password/">&lt;ol&gt;
@@ -633,82 +637,101 @@ login yizeng&lt;br /&gt;
 password the_password&lt;br /&gt;&lt;/p&gt;
 &lt;/blockquote&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="git" /><category term="tortoisegit" /><category term="windows" /><summary type="html">从文件管理器打开 %USERPROFILE% 新建一个文件，名为 _netrc 在文件中输入以下几行：</summary></entry><entry><title type="html">Jekyll 使用过程中的一些常用的 RubyGems 命令</title><link href="http://cn.yizeng.me/2013/05/17/quick-rubygems-command-references-for-jekyll/" rel="alternate" type="text/html" title="Jekyll 使用过程中的一些常用的 RubyGems 命令" /><published>2013-05-17T00:00:00+12:00</published><updated>2013-05-17T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/05/17/quick-rubygems-command-references-for-jekyll</id><content type="html" xml:base="http://cn.yizeng.me/2013/05/17/quick-rubygems-command-references-for-jekyll/">&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;gem --help&lt;/code&gt; 显然会是很有用且值得一读的，可惜过长，故挑出以下一些命令作为常用参考。&lt;/p&gt;
 
-&lt;h2 id=&quot;heading-安装卸载-gem&quot;&gt;安装/卸载 gem&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;安装/卸载 gem&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install jekyll
-gem uninstall jekyll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;gem install jekyll&lt;br /&gt;
+gem uninstall jekyll&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h2 id=&quot;heading-安装某特定版本的-gem&quot;&gt;安装某特定版本的 gem&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;安装某特定版本的 gem&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem install pygments.rb --version 0.4.2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;gem install pygments.rb --version 0.4.2&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;h2 id=&quot;heading-卸载某特定版本的-gem&quot;&gt;卸载某特定版本的 gem&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;卸载某特定版本的 gem&lt;/p&gt;
 
-&lt;p&gt;提示 ‘Select gem to uninstall’ 并让用户选择&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;p&gt;提示 'Select gem to uninstall' 并让用户选择&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem uninstall jekyll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;gem uninstall jekyll&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;卸载指定版本&lt;/p&gt;
 
-&lt;p&gt;卸载指定版本&lt;/p&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;gem uninstall jekyll --version 1.0.1&lt;br /&gt;
+gem uninstall jekyll --version '&amp;lt;1.0.1'&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;移除所有旧版本的 Jekyll&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem uninstall jekyll --version 1.0.1
-gem uninstall jekyll --version '&amp;lt;1.0.1'
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+        &lt;blockquote&gt;
+          &lt;p&gt;gem cleanup jekyll&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;列出所有本地的 gem&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;移除所有旧版本的 Jekyll&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;gem list --local&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem cleanup jekyll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;列出所有的 gem&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h2 id=&quot;heading-列出所有本地的-gem&quot;&gt;列出所有本地的 gem&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;gem list --all&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem list --local
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;列出所有 Jekyll 的 gem&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h2 id=&quot;heading-列出所有的-gem&quot;&gt;列出所有的 gem&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;gem list jekyll&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem list --all
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;更新已安装的 gem&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h2 id=&quot;heading-列出所有-jekyll-的-gem&quot;&gt;列出所有 Jekyll 的 gem&lt;/h2&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;gem update&lt;/p&gt;
+&lt;/blockquote&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem list jekyll
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;更新已安装的系统 gem&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;h2 id=&quot;heading-更新已安装的-gem&quot;&gt;更新已安装的 gem&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem update
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;heading-更新已安装的系统-gem&quot;&gt;更新已安装的系统 gem&lt;/h2&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gem update --system
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="jekyll" /><category term="ruby" /><summary type="html">gem --help 显然会是很有用且值得一读的，可惜过长，故挑出以下一些命令作为常用参考。</summary></entry><entry><title type="html">在 Windows 上安装 Jekyll</title><link href="http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows/" rel="alternate" type="text/html" title="在 Windows 上安装 Jekyll" /><published>2013-05-10T00:00:00+12:00</published><updated>2013-05-10T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows</id><content type="html" xml:base="http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows/">&lt;blockquote&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;gem update --system&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="jekyll" /><category term="ruby" /><summary type="html">gem --help 显然会是很有用且值得一读的，可惜过长，故挑出以下一些命令作为常用参考。</summary></entry><entry><title type="html">在 Windows 上安装 Jekyll 3</title><link href="http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows/" rel="alternate" type="text/html" title="在 Windows 上安装 Jekyll 3" /><published>2013-05-10T00:00:00+12:00</published><updated>2013-05-10T00:00:00+12:00</updated><id>http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows</id><content type="html" xml:base="http://cn.yizeng.me/2013/05/10/setup-jekyll-on-windows/">&lt;blockquote&gt;
   &lt;p&gt;若想查看原文，请点击&lt;a href=&quot;http://yizeng.me/2013/05/10/install-jekyll-3-on-windows/&quot;&gt;本链接&lt;/a&gt;。&lt;/p&gt;
+
+  &lt;p&gt;最近更新于 - 2017年1月7日&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;ul class=&quot;toc&quot; id=&quot;markdown-toc&quot;&gt;
   &lt;li&gt;&lt;a href=&quot;#install-ruby&quot; id=&quot;markdown-toc-install-ruby&quot;&gt;安装 Ruby&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#install-devkit&quot; id=&quot;markdown-toc-install-devkit&quot;&gt;安装 DevKit&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#install-jekyll&quot; id=&quot;markdown-toc-install-jekyll&quot;&gt;安装 Jekyll&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#install-pygements&quot; id=&quot;markdown-toc-install-pygements&quot;&gt;安装 Pygments&lt;/a&gt;    &lt;ul&gt;
-      &lt;li&gt;&lt;a href=&quot;#install-python&quot; id=&quot;markdown-toc-install-python&quot;&gt;安装 Python&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#install-easy-install&quot; id=&quot;markdown-toc-install-easy-install&quot;&gt;安装 ‘Easy Install’&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#install-pygements-2&quot; id=&quot;markdown-toc-install-pygements-2&quot;&gt;安装 Pygments&lt;/a&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#start-jekyll&quot; id=&quot;markdown-toc-start-jekyll&quot;&gt;启动 Jekyll&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#troubleshooting&quot; id=&quot;markdown-toc-troubleshooting&quot;&gt;故障诊断&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -720,16 +743,16 @@ gem uninstall jekyll --version '&amp;lt;1.0.1'
     &lt;p&gt;前往 &lt;a href=&quot;http://rubyinstaller.org/downloads/&quot;&gt;http://rubyinstaller.org/downloads/&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;在 “RubyInstallers” 部分，选择某个版本点击下载。&lt;br /&gt;
-例如， Ruby 2.0.0-p451 (x64) 是适于64位 Windows 机器上的 Ruby 2.0.0 x64 安装包。&lt;/p&gt;
+    &lt;p&gt;在 &quot;RubyInstallers&quot; 部分，选择某个版本点击下载。&lt;br /&gt;
+例如，&lt;code class=&quot;highlighter-rouge&quot;&gt;Ruby 2.3.3-p222 (x64)&lt;/code&gt; 是适于64位 Windows 机器上的 Ruby 2.3.3 x64 安装包。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;通过安装包安装&lt;/p&gt;
 
     &lt;ul&gt;
-      &lt;li&gt;最好保持默认的路径 &lt;code class=&quot;highlighter-rouge&quot;&gt;C:\Ruby200-x64&lt;/code&gt;，
+      &lt;li&gt;最好保持默认的路径 &lt;code class=&quot;highlighter-rouge&quot;&gt;C:/Ruby23-x64&lt;/code&gt;，
 因为安装包明确提出 “请不要使用带有空格的文件夹 (如： Program Files)”。&lt;/li&gt;
-      &lt;li&gt;勾选 “Add Ruby executables to your PATH”，这样执行程序会被自动添加至 PATH 而避免不必要的头疼。&lt;/li&gt;
+      &lt;li&gt;勾选 &quot;Add Ruby executables to your PATH&quot;，这样执行程序会被自动添加至 PATH 而避免不必要的头疼。&lt;/li&gt;
     &lt;/ul&gt;
 
     &lt;p&gt;&lt;a class=&quot;post-image&quot; href=&quot;/assets/images/posts/2013-05-11-ruby-installer.png&quot;&gt;
@@ -746,7 +769,7 @@ gem uninstall jekyll --version '&amp;lt;1.0.1'
     &lt;p&gt;输出示例：&lt;/p&gt;
 
     &lt;blockquote&gt;
-      &lt;p&gt;ruby 2.0.0p451 (2014-02-24) [x64-mingw32]&lt;/p&gt;
+      &lt;p&gt;ruby 2.3.3p222 (2016-11-21 revision 56859) [x64-mingw32]&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
@@ -762,7 +785,7 @@ gem uninstall jekyll --version '&amp;lt;1.0.1'
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;下载同系统及 Ruby 版本相对应的 DevKit 安装包。
-例如，DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe 适用于64位 Windows 系统上的 Ruby 2.0.0 x64。&lt;/p&gt;
+例如，DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe 适用于64位 Windows 系统上的 Ruby 2.3.3 x64。&lt;/p&gt;
 
     &lt;p&gt;下面列出了如何选择正确的 DevKit 版本：&lt;/p&gt;
 
@@ -776,16 +799,15 @@ gem uninstall jekyll --version '&amp;lt;1.0.1'
     &lt;p&gt;运行安装包并解压缩至某文件夹，如 C:\DevKit&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;通过初始化来创建 config.yml 文件。在命令行窗口内，输入下列命令：&lt;/p&gt;
+    &lt;p&gt;通过初始化来创建 config.yml 文件。在 &lt;code class=&quot;highlighter-rouge&quot;&gt;C:\DevKit&lt;/code&gt; 文件夹内打开命令行窗口，输入下列命令：&lt;/p&gt;
 
     &lt;blockquote&gt;
-      &lt;p&gt;cd “C:\DevKit”&lt;br /&gt;
-ruby dk.rb init&lt;br /&gt;
+      &lt;p&gt;ruby dk.rb init&lt;br /&gt;
 notepad config.yml&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;在打开的记事本窗口中，于末尾添加新的一行 &lt;code class=&quot;highlighter-rouge&quot;&gt;- C:\Ruby200-x64&lt;/code&gt;，保存文件并退出。&lt;/p&gt;
+    &lt;p&gt;在打开的记事本窗口中，于末尾添加新的一行 &lt;code class=&quot;highlighter-rouge&quot;&gt;- C:/Ruby23-x64&lt;/code&gt;，保存文件并退出。&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;回到命令行窗口内，审查（非必须）并安装。&lt;/p&gt;
@@ -810,85 +832,40 @@ ruby dk.rb install&lt;/p&gt;
     &lt;p&gt;输出示例：&lt;/p&gt;
 
     &lt;blockquote&gt;
-      &lt;p&gt;2.0.14&lt;/p&gt;
+      &lt;p&gt;2.6.8&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;安装 Jekyll gem&lt;/p&gt;
+    &lt;p&gt;安装 Jekyll 和 &lt;a href=&quot;http://bundler.io/&quot;&gt;Bundler&lt;/a&gt; gems&lt;/p&gt;
 
     &lt;blockquote&gt;
-      &lt;p&gt;gem install jekyll&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;install-pygements&quot;&gt;安装 Pygments&lt;/h2&gt;
-
-&lt;p&gt;Jekyll 里默认的语法高亮插件是 &lt;a href=&quot;http://pygments.org/&quot;&gt;Pygments&lt;/a&gt;。
-它需要安装 Python 并在网站的配置文件 &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt; 里将 &lt;code class=&quot;highlighter-rouge&quot;&gt;highlighter&lt;/code&gt; 的值设置为 &lt;code class=&quot;highlighter-rouge&quot;&gt;pygments&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;不久之前，Jekyll 还添加另一个高亮引擎名为 &lt;a href=&quot;https://github.com/jayferd/rouge&quot;&gt;Rouge&lt;/a&gt;，
-尽管暂时不如 Pygments 支持那么多的语言，但它是原生 Ruby 程序，而不需要使用 Python。
-更多信息请&lt;a href=&quot;http://jekyllrb.com/docs/templates/#code_snippet_highlighting&quot;&gt;点此&lt;/a&gt;关注。&lt;/p&gt;
-
-&lt;h3 id=&quot;install-python&quot;&gt;安装 Python&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;前往 &lt;a href=&quot;http://www.python.org/download/&quot;&gt;http://www.python.org/download/&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;下载合适的 Python windows 安装包，如 Python 2.7.6 Windows Installer。 请注意，Python 2 可能会更合适，因为暂时 Python 3 可能不会正常工作。&lt;/li&gt;
-  &lt;li&gt;安装&lt;/li&gt;
-  &lt;li&gt;添加安装路径 (如： C:\Python27) 至 PATH。(如何操作? 请参见 &lt;a href=&quot;#troubleshooting&quot;&gt;故障诊断 #1&lt;/a&gt;)&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;检验 Python 安装是否成功&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;python –version&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;输出示例：&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;Python 2.7.6&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;install-easy-install&quot;&gt;安装 ‘Easy Install’&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;浏览 &lt;a href=&quot;https://pypi.python.org/pypi/setuptools#installation-instructions&quot;&gt;https://pypi.python.org/pypi/setuptools#installation-instructions&lt;/a&gt; 来查看详细的安装指南。&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;对于 Windows 7 的机器，下载 &lt;a href=&quot;https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py&quot;&gt;ez_setup.py&lt;/a&gt; 并保存，例如，至&lt;code class=&quot;highlighter-rouge&quot;&gt;C:\&lt;/code&gt;。
-然后从命令行使用 Python 运行此文件：&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;python “C:\ez_setup.py”&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;添加 ‘Python Scripts’ 路径 (如： C:\Python27\Scripts) 至 PATH&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;install-pygements-2&quot;&gt;安装 Pygments&lt;/h3&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;确保 easy_install 已经正确安装&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;easy_install –version&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;输出示例：&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;setuptools 3.1&lt;/p&gt;
+      &lt;p&gt;gem install jekyll bundler&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;使用 “easy_install” 来安装 Pygments&lt;/p&gt;
+    &lt;p&gt;确保 jekyll gem 已经正确安装&lt;/p&gt;
 
     &lt;blockquote&gt;
-      &lt;p&gt;easy_install Pygments&lt;/p&gt;
+      &lt;p&gt;jekyll -v&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;输出示例:&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;jekyll 3.3.1&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;确保 bundler gem 已经正确安装&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;bundle -v&lt;/p&gt;
+    &lt;/blockquote&gt;
+
+    &lt;p&gt;输出示例:&lt;/p&gt;
+
+    &lt;blockquote&gt;
+      &lt;p&gt;Bundler version 1.13.7&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
@@ -901,8 +878,12 @@ ruby dk.rb install&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;jekyll new myblog&lt;br /&gt;
 cd myblog&lt;br /&gt;
-jekyll serve&lt;/p&gt;
+bundle exec jekyll serve&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a class=&quot;post-image&quot; href=&quot;/assets/images/posts/2013-05-11-new-jekyll-3-site.png&quot;&gt;
+&lt;img itemprop=&quot;image&quot; data-src=&quot;/assets/images/posts/2013-05-11-new-jekyll-3-site.png&quot; src=&quot;/assets/javascripts/unveil/loader.gif&quot; alt=&quot;New Jekyll 3 Site&quot; /&gt;
+&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;troubleshooting&quot;&gt;故障诊断&lt;/h2&gt;
 
@@ -910,11 +891,9 @@ jekyll serve&lt;/p&gt;
   &lt;li&gt;
     &lt;p&gt;错误信息：&lt;/p&gt;
 
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;“python” is not recognized as an internal or external command, operable program or batch file.
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&quot;ruby&quot; is not recognized as an internal or external command, operable program or batch file.
 &lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt;
-
-    &lt;p&gt;&lt;strong&gt;其他情况&lt;/strong&gt;： 这里的 “python” 也可能是 “ruby”， “gem” 或是 “easy_install” 等。&lt;/p&gt;
 
     &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： 该程序可能未被正确地安装或未在 PATH 里设置成功。&lt;/p&gt;
 
@@ -925,7 +904,7 @@ jekyll serve&lt;/p&gt;
         &lt;li&gt;按住 Win 键再按下 Pause&lt;/li&gt;
         &lt;li&gt;点击 Advanced System Settings&lt;/li&gt;
         &lt;li&gt;点击 Environment Variables&lt;/li&gt;
-        &lt;li&gt;将 ;C:\python27 添加至 Path 变量的末尾&lt;/li&gt;
+        &lt;li&gt;将 &lt;code class=&quot;highlighter-rouge&quot;&gt;;C:\Ruby23-x64\bin&lt;/code&gt; 添加至 Path 变量的末尾&lt;/li&gt;
         &lt;li&gt;重启命令行&lt;/li&gt;
       &lt;/ol&gt;
     &lt;/blockquote&gt;
@@ -936,7 +915,7 @@ jekyll serve&lt;/p&gt;
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ERROR:  Error installing jekyll:
 ERROR: Failed to build gem native extension.
 
-&quot;C:/Program Files/Ruby/Ruby200-x64/bin/ruby.exe&quot; extconf.rb
+&quot;C:/Program Files/Ruby23-x64/bin/ruby.exe&quot; extconf.rb
 
 creating Makefile
 make generating stemmer-x64-mingw32.def
@@ -956,11 +935,24 @@ make: *** [install-so] Error 1
   &lt;li&gt;
     &lt;p&gt;错误信息：&lt;/p&gt;
 
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;New jekyll site installed in C:/Code/GitHub/blog.
+ Dependency Error: Yikes! It looks like you don't have bundler or one of its dependencies installed. In order to use Jekyll as currently configured, you'll need to install this gem. The full error message from Ruby is: 'cannot load such file -- bundler' If you run into trouble, you can find helpful resources at http://jekyllrb.com/help/!
+jekyll 3.3.1 | Error:  bundler
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;: Bundler gem 未被正确安装.&lt;/p&gt;
+
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;: 运行命令 &lt;code class=&quot;highlighter-rouge&quot;&gt;gem install bundler&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;错误信息：&lt;/p&gt;
+
     &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Generating... Liquid Exception: No such file or directory - python c:/Ruby200-x64/lib/ruby/gems/2.0.0/gems/pygments.rb-0.4.2/lib/pygments/mentos.py in 2013-04-22-yizeng-hello-world.md
 &lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt;
 
-    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： Pygments 未能被正确安装或是 PATH 设置尚未生效。&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： 如果你正在使用 Jekyll 2 和 Pygments， 这个错误很可能意味着 Pygments 未能被正确安装或是 PATH 设置尚未生效。&lt;/p&gt;
 
     &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;： 首先请确保 Pygments 已成功安装且 Python 的 PATH 设置正确未包含空格和最后多余的斜杠。
  然后重启命令行。如果依旧失败，请尝试注销并重新登录 Windows。
@@ -978,8 +970,8 @@ make: *** [install-so] Error 1
     &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;： 将 pygments.rb gem 的版本从 0.5.1/0.5.2 降至 0.5.0。&lt;/p&gt;
 
     &lt;blockquote&gt;
-      &lt;p&gt;gem uninstall pygments.rb –version ‘=0.5.2’&lt;br /&gt;
-gem install pygments.rb –version 0.5.0&lt;/p&gt;
+      &lt;p&gt;gem uninstall pygments.rb --version '=0.5.2'&lt;br /&gt;
+gem install pygments.rb --version 0.5.0&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
@@ -1000,8 +992,8 @@ from c:/Ruby200-x64/bin/jekyll:22:in `&amp;lt;main&amp;gt;'`
     &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;： 将 pygments.rb gem 的版本降级至 0.4.2&lt;/p&gt;
 
     &lt;blockquote&gt;
-      &lt;p&gt;gem uninstall pygments.rb –version “=0.5.0”&lt;br /&gt;
-gem install pygments.rb –version “=0.4.2”&lt;/p&gt;
+      &lt;p&gt;gem uninstall pygments.rb --version “=0.5.0”&lt;br /&gt;
+gem install pygments.rb --version “=0.4.2”&lt;/p&gt;
     &lt;/blockquote&gt;
   &lt;/li&gt;
   &lt;li&gt;
@@ -1017,14 +1009,10 @@ ERROR: YOUR SITE COULD NOT BE BUILT:
 &lt;/code&gt;&lt;/pre&gt;
     &lt;/div&gt;
 
-    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： 依赖包 &lt;code class=&quot;highlighter-rouge&quot;&gt;rdiscount&lt;/code&gt; 未找到。
+    &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： 如果你还是在使用 Jekyll 2, 这个错误很可能是因为依赖包 &lt;code class=&quot;highlighter-rouge&quot;&gt;rdiscount&lt;/code&gt; 未找到。
  此问题最有可能的原因是，网站使用的是 &lt;a href=&quot;https://github.com/davidfstr/RDiscount&quot;&gt;rdiscount&lt;/a&gt; 作为 Markdown 引擎，而不是 Jekyll 默认的引擎，故需要手动自行安装。&lt;/p&gt;
 
-    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;：&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;gem install rdiscount&lt;/p&gt;
-    &lt;/blockquote&gt;
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;：运行 &lt;code class=&quot;highlighter-rouge&quot;&gt;gem install rdiscount&lt;/code&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;错误信息：&lt;/p&gt;
@@ -1040,11 +1028,7 @@ dapter'
 
     &lt;p&gt;&lt;strong&gt;可能原因&lt;/strong&gt;： &lt;code class=&quot;highlighter-rouge&quot;&gt;wdm&lt;/code&gt; gem 未被安装。因为 Jekyll 只官方地支持 *nix 系统，所以 &lt;a href=&quot;https://github.com/Maher4Ever/wdm&quot;&gt;Windows Directory Monitor&lt;/a&gt; 并没有作为依赖包而被自动安装。&lt;/p&gt;
 
-    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;：&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;gem install wdm&lt;/p&gt;
-    &lt;/blockquote&gt;
+    &lt;p&gt;&lt;strong&gt;尝试解法&lt;/strong&gt;：将 &lt;code class=&quot;highlighter-rouge&quot;&gt;gem 'wdm', '&amp;gt;= 0.1.0' if Gem.win_platform?&lt;/code&gt; 加入 &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; 文件，然后再次运行 &lt;code class=&quot;highlighter-rouge&quot;&gt;bundle install&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -1054,4 +1038,4 @@ dapter'
       &lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/a/6318188/1177636&quot;&gt;在 Windows 7 上添加 Python Path&lt;/a&gt; by melhosseiny.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
     &lt;/li&gt;
   &lt;/ol&gt;
-&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="jekyll" /><category term="ruby" /><category term="windows" /><summary type="html">若想查看原文，请点击本链接。</summary></entry></feed>
+&lt;/div&gt;</content><author><name>Yi Zeng</name><email>yi.zeng.dev@gmail.com</email></author><category term="jekyll" /><category term="ruby" /><category term="windows" /><summary type="html">若想查看原文，请点击本链接。 最近更新于 - 2017年1月7日</summary></entry></feed>
