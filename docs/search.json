@@ -1,6 +1,13 @@
 [
   
     {
+      "title"      : "使用 Google Chrome 开发者工具审查和验证 XPath/CSS 选择器",
+      "url"        : "/2014/03/23/evaluate-and-validate-xpath-css-selectors-in-chrome-developer-tools/",
+      "date"       : "2014-03-23 00:00:00 +1300",
+      "shortdate"  : "March 23, 2014"
+    } ,
+  
+    {
       "title"      : "在运行时更新 App.config 里的 AppSettings 属性及自定义配置节",
       "url"        : "/2013/08/31/update-appsettings-and-custom-configuration-sections-in-appconfig-at-runtime/",
       "date"       : "2013-08-31 00:00:00 +1200",
